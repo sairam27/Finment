@@ -1,0 +1,314 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FINMENT-FINANCIER</title>
+      <link rel="shortcut icon" href="img/capture.png" />
+    <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+    <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+    
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  </head>  
+<body>
+<!--Navigation bar-->
+<nav class="navbar navbar-default navbar-fixed-top">
+        
+      <div class="container">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><img src="img/Logo.PNG" height="60" width="140"> </a>
+        </div> 
+          
+            
+          
+        <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav ">
+        <li class="btn-trial1"><a href="#"> Financier </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a href="#"data-target="#" data-toggle="modal"> Investors</a></li>
+          <li><a href="#"data-target="#" data-toggle="modal"> Clients  </a></li>
+          <li><a href="#"data-target="#" data-toggle="modal"> Balance available </a></li>
+            <li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile Settings <b class="caret"></b></a>
+				  <ul class="dropdown-menu">
+				    <li><a href="index.html">Edit Profile</a></li>
+					<li><a href="index-form.html">Change Mobile/Email</a></li>
+					<li><a href="index-video.html">Change Password</a></li>
+				  </ul>
+				</li>
+            <li class="btn-trial"><a href="#footer">Logout</a></li>
+        </ul>
+        </div>
+      </div>
+    </nav>
+<!--/ Navigation bar-->  
+        
+<!--Pricing-->
+<section id ="pricing" class="section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="header-section text-center">
+            <h2>Analysis</h2>
+            <p>The finance controller prepares an ongoing analysis of the finances's financial results, particularly in relation to a number of operational metrics that are not seen by outside entities (such as Interest rate, amount distribution channel, profit from clients, and so forth).</p>
+            <hr class="bottom-line">
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <div class="price-table">
+              <!-- Plan  -->
+              <div class="pricing-head">
+                <h4>Clients</h4>
+                <span class="amount">0</span> 
+              </div>
+                <div class="price-in mart-15">
+                  
+                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
+              </div>
+          
+              <!-- Plean Detail -->
+              <div class="price-in mart-15">
+                <a href="#" class="btn btn-bg green btn-block" data-target="#clientadd" data-toggle="modal">Add Client</a>  
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4">
+            <div class="price-table">
+              <!-- Plan  -->
+              <div class="pricing-head">
+                <h4>Investors</h4>
+             <span class="amount">0</span> 
+              </div>
+                <div class="price-in mart-15">
+                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
+              </div>
+                
+          
+              <!-- Plean Detail -->
+              <div class="price-in mart-15">
+                <a href="#" class="btn btn-bg yellow btn-block" data-target="#investoradd" data-toggle="modal">Add Investors</a> 
+              </div>
+            </div>
+          </div>
+            
+            <div class="col-md-4 col-sm-4">
+            <div class="price-table">
+              <!-- Plan  -->
+              <div class="pricing-head">
+                <h4>Amount available</h4>
+             <span class="fa fa-inr curency"></span><span class="amount">0</span> 
+              </div>
+          
+              <!-- Plean Detail -->
+              <div class="price-in mart-15">
+                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
+              </div>
+                <div class="price-in mart-15">
+                <a href="#" class="btn btn-bg yellow btn-block">Tax Detailss</a> 
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </section>
+<!--/ Pricing-->
+        
+<!--clientadd-->
+<div class="modal fade" id="clientadd" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" id="fregclose" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Financier's Registration</h4>
+          </div>
+          <div class="modal-body padtrbl">
+
+            <div class="login-box-body">
+              <div class="form-group">
+                <form role="form">
+                 <div class="form-group has-feedback"> <!----- firstname -------------->
+                      <input class="form-control fname-validation" placeholder="Firstname"  name="fname" type="textbox" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="fname11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+            
+                      
+                  </div>
+                      <div class="form-group has-feedback"> <!----- lastname -------------->
+                      <input class="form-control lname-validation form-element" placeholder="Lastname"  name="lname" type="textbox" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="lname11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group has-feedback"> <!----- email -------------->
+                      <input class="form-control email-validation form-element" placeholder="E-Mail"  name="email" type="textbox" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="email11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                     
+                  </div>
+                    
+                  <div class="form-group  has-feedback"><!----- password -------------->
+                      <input class="form-control fpsw-validation form-element" placeholder="Password" name="fpsw" type="password" autocomplete="off" /><span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="fpsw11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group  has-feedback"> <!----- confirm password -------------->
+                      <input class="form-control fcpsw-validation form-element" placeholder="Confirm Password"  name="fcpsw" type="password" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="fcpsw11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group has-feedback"> <!----- mobile no -------------->
+                      <input class="form-control mobile-validation form-element" placeholder="Mobile No"  name="mobile" type="tel"  autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="mobile11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group has-feedback"> <!----- aadhar -------------->
+                      <input class="form-control aadhar-validation form-element" placeholder="Aadhar Card No"  name="aadhar" type="textbox" autocomplete="off" /><span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="aadhar11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group has-feedback"> <!----- PAN no -------------->
+                      <input class="form-control pan-validation form-element" placeholder="Pan No"  name="panid" type="textbox" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="pan11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+    
+                    <div class="form-group has-feedback"> <!----- bank number -------------->
+                      <input class="form-control bank" placeholder="Bank Account Number"  id="loginid6" type="text" autocomplete="off" /> 
+                        <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                        <span id="pan11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                    
+                  </div>
+                    <div class="form-group has-feedback"> <!----- Ifsc code -------------->
+                      <input class="form-control ifsc" placeholder="IFSC code"  id="loginid7" type="text" autocomplete="off" /> 
+                        <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                        <span id="pan11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                    
+                  </div>
+                    
+                    
+                  <div class="row">
+                      <div class="col-xs-12">
+                          
+                      </div>
+                      <div class="col-xs-12">
+                          <button type="button" class="btn btn-green btn-block btn-flat signupclient-btn">Register</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="signup-message1"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!--/ clientadd-->
+        
+<!--investoradd-->
+<div class="modal fade" id="investoradd" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" id="fregclose" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Financier's Registration</h4>
+          </div>
+          <div class="modal-body padtrbl">
+
+            <div class="login-box-body">
+              <div class="form-group">
+                <form role="form">
+                 <div class="form-group has-feedback"> <!----- firstname -------------->
+                      <input class="form-control fname-validation" placeholder="Firstname"  name="fname" type="textbox" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="fname11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+            
+                      
+                  </div>
+                      <div class="form-group has-feedback"> <!----- lastname -------------->
+                      <input class="form-control lname-validation form-element" placeholder="Lastname"  name="lname" type="textbox" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="lname11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group has-feedback"> <!----- email -------------->
+                      <input class="form-control email-validation form-element" placeholder="E-Mail"  name="email" type="textbox" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="email11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                     
+                  </div>
+                    
+                  <div class="form-group  has-feedback"><!----- password -------------->
+                      <input class="form-control fpsw-validation form-element" placeholder="Password" name="fpsw" type="password" autocomplete="off" /><span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="fpsw11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group  has-feedback"> <!----- confirm password -------------->
+                      <input class="form-control fcpsw-validation form-element" placeholder="Confirm Password"  name="fcpsw" type="password" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="fcpsw11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group has-feedback"> <!----- mobile no -------------->
+                      <input class="form-control mobile-validation form-element" placeholder="Mobile No"  name="mobile" type="tel"  autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="mobile11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group has-feedback"> <!----- aadhar -------------->
+                      <input class="form-control aadhar-validation form-element" placeholder="Aadhar Card No"  name="aadhar" type="textbox" autocomplete="off" /><span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="aadhar11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                      <div class="form-group has-feedback"> <!----- PAN no -------------->
+                      <input class="form-control pan-validation form-element" placeholder="Pan No"  name="panid" type="textbox" autocomplete="off" /> <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span id="pan11" class="glyphicon glyphicon-asterisk form-control-feedback"></span>
+                      
+                  </div>
+                    
+                  <div class="row">
+                      <div class="col-xs-12">
+                          
+                      </div>
+                      <div class="col-xs-12">
+                          <button type="button" class="btn btn-green btn-block btn-flat signupinvestor-btn">Register</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="signup-message1"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!--/ investoradd-->   
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.flexslider.js"></script>
+    <script src="js/envalidations.js"></script>    
+    <script src="contactform/contactform.js"></script>
+</body>
+</html>
