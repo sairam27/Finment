@@ -40,7 +40,7 @@
     </nav>
     <!--/ Navigation bar-->
       
-      <!--Modal box qr code-->
+    <!--Modal box qr code-->
     <div class="modal fade" id="login" role="dialog">
       <div class="modal-dialog modal-sm">
       
@@ -114,8 +114,8 @@
                           </div>
                       </div>
                       <div class="col-xs-12">
-                          <button type="button" class="btn financierlogin-btn btn-green btn-block btn-flat" ><span class="glyphicon glyphicon-lock"></span>&nbsp; Sign In  <span id="sign11" class="glyphicon register11"></span></button>
-                          <button type="button" class="btn btn-green btn-block btn-flat" onclick="userlogin()">Forgot Password?</button>
+                          <button type="button" class="btn financierlogin-btn btn-green btn-block btn-flat" ><span class="glyphicon glyphicon-lock"></span>&nbsp; Sign In  <span id="sign11" class="glyphicon sign11"></span></button>
+                          <button type="button" class="btn forgotpass btn-green btn-block btn-flat" data-dismiss="modal">Forgot Password?</button>
                       </div>
                   </div>
                 </form>
@@ -130,6 +130,45 @@
       </div>
     </div>
     <!--/ Login box-->
+      
+    <!--forget password box-->
+    <div class="modal fade" id="Forgetpassword" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Forgetpassword</h4>
+          </div>
+          <div class="modal-body padtrbl">
+
+            <div class="login-box-body">
+              <p class="login-box-msg">Enter your Email address</p>
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"> <!----- username -------------->
+                      <input class="form-control foremail" placeholder="Email"  id="foremail" type="text" autocomplete="off" /> 
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <button type="button" class="btn  forpass btn-green btn-block btn-flat"><span class="glyphicon glyphicon-lock"></span>&nbsp; Password <span id="for11" class="glyphicon for11"></span></button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+               <div class="modal-footer">
+          <div class="message pull-left" id="signup-message3"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--/ forget password box-->  
             
       <!--Financier signup-->
     <div class="modal fade" id="financiersignup" role="dialog">

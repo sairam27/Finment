@@ -1,6 +1,6 @@
 (function ($) {
 invalid_fields_on_page=  0;
-var f=0,l=0,e=0,p=0,m=0,a=0,pa=0,le=0,lp=0,fid=0;
+var f=0,l=0,e=0,p=0,m=0,a=0,pa=0,le=0,lp=0,fid=0,fore=0;
 $(document).on('blur','.fname-validation',function(){
 	var content = $(this).val();
 	var message = '';
@@ -415,16 +415,18 @@ $(document).on('click','.signup-btn',function(event){
         fid:fid    
         },function(data){
         var result = JSON.parse(data);
-            $('#signup-message1').html(result.message2);
         if(result.success){ 
-            $(".register11").removeClass('has-error').addClass('has-success');
+            $(".register11").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
             $(".register11").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
             var message1="Registration Successfull Kindly Activate your Account from the Mail sent to u.!"
             $('#signup-message1').html(message1);
             
-        }else
-            var message2="Registration Unsucessfull Maybe Server Problem..!"
-            $('#signup-message1').html(result.message2);
+        }else{
+                $(".register11").removeClass('has-success').addClass('has-error');
+                $(".register11").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
+                var message2="Registration Unsucessfull Maybe Server Problem..!"
+                $('#signup-message1').html(result.message);
+            } 
     });
     }else{
         var message="Validation not approved"
@@ -447,12 +449,12 @@ $(document).on('blur','.financierid',function(){
 		valid = false;
 		invalid_fields_on_page++;
 		console.log("Enter field ");
-		message = "Enter Your email"; //made change
+		message = "Enter Your financier Id"; //made change
 	}else if(validArray == null){
 		valid = false;
 		invalid_fields_on_page++;
 		console.log("inalid text input");
-		message = "Invalid email";//made change
+		message = "Invalid Financier ID";//made change
 		//console.log(invalidArray);
 	}else{
 		 fid=1;// No errors!
@@ -530,7 +532,7 @@ $(document).on('blur','.password',function(){
 		console.log("Password should have atleast 8 characters");
 		message = "Password should have atleast 8 characters";
 	}else{
-		lp=1// No errors!
+		lp=1;// No errors!
 	}
 
 	$(this).closest('.login-box-body').siblings('.modal-footer').find('.message').html(message);
@@ -548,37 +550,72 @@ if(valid){
 });
     
 $(document).on('click','.financierlogin-btn',function(){
-    if(le==1 && lp==1 && fid==1){
+if(le==1 && lp==1){ 
         var category = $("#category").val();
+        if(category=="Client"){
         var fid = $('.financierid').val();
-	    var lemail = $('.email').val();
+        var lemail = $('.email').val();
 	    var lpassword = $('.password').val();
-        var message="Validation approved"
-        $('#signup-message').html(message);
+        $(this).find($(".sign11")).removeClass('has-error').addClass('has-success');
+        $(this).find($(".sign11")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
         $.post("http://localhost:80/Finment/login.php",{
         category:category,
         fid:fid,
-		lemail:lemail,
+        lemail:lemail,
 		lpassword:lpassword
         },function(data){
         var result = JSON.parse(data);
         $('#signup-message').html(result.message);
-        if(result.success)
-            location.assign('http://localhost:80/Finment/Financier.html');
-        else
-            loccation.assign('http://localhost:80/Finment/Client.html');
+        if(result.success){
+            $(".sign11").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+            $(".sign11").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
+            localStorage.setItem("fname",result.fname);
+            localStorage.setItem("lname",result.lname);
+            localStorage.setItem("mobile",result.mobile);
+            localStorage.setItem("fid",result.fid);
+            localStorage.setItem("email",result.email);
+            location.assign('http://localhost:80/Finment/Client.php');
+                }else{
+            $(".sign11").removeClass('has-success').addClass('has-error');
+            $(".sign11").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
+            $('#signup-message').html(result.message);
+                }
+                });
+        }else if(category=="Investor"){
+            var fid = $('.financierid').val();
+        var lemail = $('.email').val();
+	    var lpassword = $('.password').val();
+        $(this).find($(".sign11")).removeClass('has-error').addClass('has-success');
+        $(this).find($(".sign11")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
+        $.post("http://localhost:80/Finment/login.php",{
+        category:category,
+        fid:fid,
+        lemail:lemail,
+		lpassword:lpassword
+        },function(data){
+        var result = JSON.parse(data);
+        $('#signup-message').html(result.message);
+        if(result.success){
+            $(".sign11").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+            $(".sign11").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
+            localStorage.setItem("fname",result.fname);
+            localStorage.setItem("lname",result.lname);
+            localStorage.setItem("mobile",result.mobile);
+            localStorage.setItem("fid",result.fid);
+            localStorage.setItem("email",result.email);
+            location.assign('http://localhost:80/Finment/Investor.php');
+        }else{
+            $(".sign11").removeClass('has-success').addClass('has-error');
+            $(".sign11").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
+            $('#signup-message').html(result.message);
+        }
     });
-    }else{
-        var message="Validation not approved"
-        $('#signup-message').html(message);
-    }
-    
-    if(le==1 && lp==1 && fid==0){
+        }else if(category=="Financier"){ //financier//
         var category = $("#category").val();
         var lemail = $('.email').val();
 	    var lpassword = $('.password').val();
-        var message="Validation approved"
-        $('#signup-message').html(message);
+        $(this).find($(".sign11")).removeClass('has-error').addClass('has-success');
+        $(this).find($(".sign11")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
         $.post("http://localhost:80/Finment/login.php",{
         category:category,
         fid:"0",
@@ -587,21 +624,102 @@ $(document).on('click','.financierlogin-btn',function(){
         },function(data){
         var result = JSON.parse(data);
         $('#signup-message').html(result.message);
-        if(result.success)
-            location.assign('http://localhost:80/Finment/Financier.html');
-        else
-            loccation.assign('http://localhost:80/Finment/Client.html');
+        if(result.success){
+            $(".sign11").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+            $(".sign11").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
+            localStorage.setItem("fname",result.fname);
+            localStorage.setItem("lname",result.lname);
+            localStorage.setItem("mobile",result.mobile);
+            localStorage.setItem("fid",result.fid);
+            localStorage.setItem("email",result.email);
+            localStorage.setItem("clients",result.clients);
+            localStorage.setItem("investors",result.investors);
+            localStorage.setItem("balance",result.balance);
+            location.assign('http://localhost:80/Finment/Financier.php');
+        }else{
+            $(".sign11").removeClass('has-success').addClass('has-error');
+            $(".sign11").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
+            $('#signup-message').html(result.message);
+        }
     });    
+    }else{
+        var message="Category not selected"
+        $('#signup-message').html(message);
+    }
     }else{
         var message="Validation not approved"
         $('#signup-message').html(message);
     }
     });
+
+$(document).on('click','.forgotpass',function(){
+    $('#Forgetpassword').modal();
+});
+    
+$(document).on('blur','.foremail',function(){
+	var content = $(this).val();
+	var message = '';
+	/*Check for punctuation. See if there is a better way*/
+	validArray = content.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+	var valid = true;
+    
+	if(content.length == 0){
+		valid = false;
+		invalid_fields_on_page++;
+		console.log("Enter field ");
+		message = "Enter Your email"; //made change
+	}else if(validArray == null){
+		valid = false;
+		invalid_fields_on_page++;
+		console.log("inalid text input");
+		message = "Invalid email";//made change
+		//console.log(invalidArray);
+	}else{
+		 fore=1;// No errors!
+	}
+
+	$(this).closest('.login-box-body').siblings('.modal-footer').find('.message').html(message);
+	if(valid){
+	    $(this).css('border','');
+	    $(this).attr('data-validation',true);
+	    $(this).closest('.login-box-body').siblings('.modal-footer').find('.message').css('color','green');
+       
+  }else{
+	    $(this).css('border','1px solid red');
+	    $(this).attr('data-validation',false);
+	    $(this).closest('.login-box-body').siblings('.modal-footer').find('.message').css('color','red');
+  }
+});
+
+$(document).on('click','.forpass',function(){
+    if(fore==1){
+       var email = $('.foremail').val();
+       $(this).find($(".for11")).removeClass('has-error').addClass('has-success');
+       $(this).find($(".for11")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
+       $.post("http://localhost:80/Finment/forgotpassword.php",{
+        email:email 
+        },function(data){
+        var result = JSON.parse(data);
+        $('#signup-message3').html(result.message);
+        if(result.success){
+            $(".for11").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+            $(".for11").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
+            var message="An email containing ur login credintials is sent to u..!"
+            $('#signup-message3').html(message);
+                }else{
+            $(".for11").removeClass('has-success').addClass('has-error');
+            $(".for11").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
+            $('#signup-message3').html(result.message);
+                }
+                });
+   }else{
+        var message="Validation not approved"
+        $('#signup-message3').html(message);
+    }
+});
     
 $(document).on('click','#lclose',function(event){
     $('#signup-message').empty(); 
-    }); 
-	
-    
+    });  
     
 })(jQuery);

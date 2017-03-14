@@ -36,9 +36,45 @@ class DB_Functions {
         $result = $stmt->execute();
         $stmt->close();
             return true;
-        }
-        
-        
+        }  
+    }
+    
+    public function activateclient($email,$passkey)
+    {
+        $stmt = $this->conn->prepare("SELECT activated FROM clients WHERE email= ? AND confirmation= ?");
+        $stmt->bind_param("ss", $email, $passkey);
+        $stmt->execute();
+        $user=$stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        if($user['activated']==1){
+            return false;
+        }else
+        {
+        $stmt = $this->conn->prepare("UPDATE clients SET activated=1 WHERE email= ? AND confirmation=?");
+        $stmt->bind_param("ss", $email, $passkey);
+        $result = $stmt->execute();
+        $stmt->close();
+            return true;
+        }  
+    }
+    
+    public function activateinvestor($email,$passkey)
+    {
+        $stmt = $this->conn->prepare("SELECT activated FROM investors WHERE email= ? AND confirmation= ?");
+        $stmt->bind_param("ss", $email, $passkey);
+        $stmt->execute();
+        $user=$stmt->get_result()->fetch_assoc();
+        $stmt->close();
+        if($user['activated']==1){
+            return false;
+        }else
+        {
+        $stmt = $this->conn->prepare("UPDATE investors SET activated=1 WHERE email= ? AND confirmation=?");
+        $stmt->bind_param("ss", $email, $passkey);
+        $result = $stmt->execute();
+        $stmt->close();
+            return true;
+        }  
     }
      /**
      * Storing new user
@@ -55,26 +91,34 @@ class DB_Functions {
         $stmt->bind_param("sssssssssssss", $uuid, $fid, $fname, $lname, $email, $encrypted_password, $salt, $mobile, $aadhar, $panid, $fpsw, $confirmation, $activated);
         $result = $stmt->execute();
         $stmt->close();
+        $stmt = $this->conn->prepare("INSERT INTO finbalance(access_id,created_at,balance) VALUES(?,NOW(),0)");
+        $stmt->bind_param("s", $fid);
+        $result1 = $stmt->execute();
+        $stmt->close();
 
         // check for successful store
         if ($result) {
+            if($result1){
             $stmt = $this->conn->prepare("SELECT * FROM financiers WHERE email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
             $user = $stmt->get_result()->fetch_assoc();
             $stmt->close();
-
             return $user;
+            }else{
+                return false;
+            }
         } else {
             return false;
         }
     }
     
     public function storeUserclient($fname, $lname, $email, $fpsw, $mobile, $aadhar, $panid , $confirmation ,$fid) {
-        $uuid = uniqid('', true);
+     $uuid = uniqid('', true);
         $hash = $this->hashSSHA($fpsw);
         $encrypted_password = $hash["encrypted"]; // encrypted password
         $salt = $hash["salt"]; // salt
+        
         $activated=0;
         $stmt = $this->conn->prepare("INSERT INTO clients(unique_id, access_id, fname, lname, email, encrypted_password, salt, created_at, mobile, aadhar, panid, password1, confirmation, activated) VALUES(?, ?, ?, ?, ?, ?, ?, NOW(),?,?,?,?,?,?)");
         $stmt->bind_param("sssssssssssss", $uuid, $fid, $fname, $lname, $email, $encrypted_password, $salt, $mobile, $aadhar, $panid, $fpsw, $confirmation, $activated);
@@ -83,7 +127,7 @@ class DB_Functions {
 
         // check for successful store
         if ($result) {
-            $stmt = $this->conn->prepare("SELECT * FROM financiers WHERE email = ?");
+            $stmt = $this->conn->prepare("SELECT * FROM clients WHERE email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
             $user = $stmt->get_result()->fetch_assoc();
@@ -109,7 +153,7 @@ class DB_Functions {
 
         // check for successful store
         if ($result) {
-            $stmt = $this->conn->prepare("SELECT * FROM financiers WHERE email = ?");
+            $stmt = $this->conn->prepare("SELECT * FROM investors WHERE email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
             $user = $stmt->get_result()->fetch_assoc();
@@ -121,7 +165,136 @@ class DB_Functions {
         }
     }
     
+    public function updatenoofclients($fid){
+         $stmt = $this->conn->prepare("SELECT * from financiers WHERE access_id = ?");
+        $stmt->bind_param("s", $fid);
+        $stmt->execute();
+        $user = $stmt->get_result()->fetch_assoc();
+       
+        $clients= $user['clients'];
+        $clients=$clients+1;
+        $stmt->close();
+        $stmt = $this->conn->prepare("UPDATE financiers SET clients=? WHERE access_id=?");
+        $stmt->bind_param("ss", $clients, $fid);
+        $result = $stmt->execute();
+        $stmt->close();
+            if($result){
+                return true;
+            }else
+            {
+                return false;
+            }
+        
+    }
     
+    public function updatenoofinvestors($fid){
+         $stmt = $this->conn->prepare("SELECT investors from financiers WHERE access_id = ?");
+        $stmt->bind_param("s", $fid);
+        $stmt->execute();
+        $user = $stmt->get_result()->fetch_assoc();
+        $clients= $user['investors'];
+        $clients=$clients+1;
+        $stmt->close();
+        $stmt = $this->conn->prepare("UPDATE financiers SET investors=? WHERE access_id=?");
+        $stmt->bind_param("ss", $clients, $fid);
+        $result = $stmt->execute();
+        $stmt->close();
+            if($result){
+                return true;
+            }else
+            {
+                return false;
+            }
+        
+    }
+    
+    public function isuseractivated($email){
+        $stmt = $this->conn->prepare("SELECT activated from financiers WHERE email = ?");
+
+        $stmt->bind_param("s", $email);
+
+        $stmt->execute();
+
+        $user = $stmt->get_result()->fetch_assoc();
+
+        if ($user['activated']==1) {
+            // user existed
+            $stmt->close();
+            return true;
+        } else {
+            // user not existed
+            $stmt->close();
+            return false;
+        }
+    }
+    
+    public function isclientactivated($email){
+        $stmt = $this->conn->prepare("SELECT activated from clients WHERE email = ?");
+
+        $stmt->bind_param("s", $email);
+
+        $stmt->execute();
+
+        $user = $stmt->get_result()->fetch_assoc();
+
+        if ($user['activated']==1) {
+            // user existed
+            $stmt->close();
+            return true;
+        } else {
+            // user not existed
+            $stmt->close();
+            return false;
+        }
+    }
+    
+    public function isinvestoractivated($email){
+        $stmt = $this->conn->prepare("SELECT activated from investors WHERE email = ?");
+
+        $stmt->bind_param("s", $email);
+
+        $stmt->execute();
+
+        $user = $stmt->get_result()->fetch_assoc();
+
+        if ($user['activated']==1) {
+            // user existed
+            $stmt->close();
+            return true;
+        } else {
+            // user not existed
+            $stmt->close();
+            return false;
+        }
+    }
+    
+    public function getnoofclients($fid){
+        $stmt = $this->conn->prepare("SELECT * FROM financiers WHERE access_id = ?");
+		$stmt->bind_param("s", $fid);
+		if($stmt->execute()) {
+			$user = $stmt->get_result()->fetch_assoc();
+			$stmt->close();
+		  $sai = $user['clients'];
+		  return $sai;
+		}
+		else {
+			return NUll;
+		}
+    }
+    
+    public function getnoofinvestors($fid){
+        $stmt = $this->conn->prepare("SELECT investors FROM financiers WHERE access_id = ?");
+		$stmt->bind_param("s", $fid);
+		if($stmt->execute()) {
+			$user = $stmt->get_result()->fetch_assoc();
+			$stmt->close();
+		  $sai = $user['investors'];
+		  return $sai;
+		}
+		else {
+			return NUll;
+		}
+    }
     
 	public function updateUser($preemail, $name, $email, $mobile) {
 
@@ -195,10 +368,52 @@ class DB_Functions {
             return NULL;
         }
     }
+    
+    public function getuserPassword($email){
+        $stmt = $this->conn->prepare("SELECT * FROM financiers WHERE email = ?");
 
+        $stmt->bind_param("s", $email);
 
+        if ($stmt->execute()) {
+            $user = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+            return $user;
 
+        } else {
+            return NULL;
+        }
+    }
+    
+    public function getclientPassword($email){
+        $stmt = $this->conn->prepare("SELECT * FROM clients WHERE email = ?");
 
+        $stmt->bind_param("s", $email);
+
+        if ($stmt->execute()) {
+            $user = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+            return $user;
+
+        } else {
+            return NULL;
+        }
+    }
+    
+    public function getinvestorPassword($email){
+        $stmt = $this->conn->prepare("SELECT * FROM investors WHERE email = ?");
+
+        $stmt->bind_param("s", $email);
+
+        if ($stmt->execute()) {
+            $user = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+            return $user;
+
+        } else {
+            return NULL;
+        }
+    }
+    
 
     /**
      * Get user by email and password
@@ -230,7 +445,7 @@ class DB_Functions {
     
     public function getUserByEmailAndPasswordandfidandclient($email, $password, $fid) {
 
-        $stmt = $this->conn->prepare("SELECT * FROM clients WHERE email = ? and fid= ?");
+        $stmt = $this->conn->prepare("SELECT * FROM clients WHERE email = ? AND access_id= ?");
 
         $stmt->bind_param("ss", $email, $fid);
 
@@ -254,7 +469,7 @@ class DB_Functions {
     
     public function getUserByEmailAndPasswordandfidandinvestor($email, $password, $fid) {
 
-        $stmt = $this->conn->prepare("SELECT * FROM investors WHERE email = ? and fid= ?");
+        $stmt = $this->conn->prepare("SELECT * FROM investors WHERE email = ? and access_id= ?");
 
         $stmt->bind_param("ss", $email, $fid);
 
@@ -275,9 +490,6 @@ class DB_Functions {
             return NULL;
         }
     }
-
-
-
 
 	public function changePassword($email, $newpass) {
         $hash = $this->hashSSHA($newpass);
@@ -302,10 +514,6 @@ class DB_Functions {
             return false;
         }
     }
-
-
-
-
 
 	  /**
      * Get user by mobile and password
@@ -355,8 +563,43 @@ class DB_Functions {
 			}
 	}
 
-
-
+    public function financierfundinsert($fund,$email,$fid){
+    $stmt = $this->conn->prepare("SELECT balance
+            FROM finbalance
+            INNER JOIN 
+            (SELECT access_id, MAX(created_at) as TopDate
+            FROM finbalance
+            WHERE access_id = ?
+            GROUP BY access_id) AS EachItem ON 
+            EachItem.TopDate = finbalance.created_at 
+            AND EachItem.access_id = finbalance.access_id");
+    $stmt->bind_param("s", $fid);
+    $stmt->execute();
+    $prevfund = $stmt->get_result()->fetch_assoc();   
+    $newfund = $prevfund["balance"]+ $fund;
+    $stmt = $this->conn->prepare("INSERT INTO finbalance(access_id,created_at,amountadded,balance) VALUES(?,NOW(),?,?)");
+    $stmt->bind_param("sss", $fid,$fund,$newfund);
+    $result=$stmt->execute();
+    $stmt->close();
+    if ($result) {
+            $stmt = $this->conn->prepare("SELECT balance FROM finbalance WHERE access_id = ?");
+            $stmt->bind_param("s", $fid);
+            $stmt->execute();
+            $stmt->store_result();
+          if ($stmt->num_rows > 0) {
+            // user existed
+            $stmt->close();
+            return true;
+        } else {
+            // user not existed
+            $stmt->close();
+            return false;
+        }
+        
+        } else {
+            return false;
+        }
+}
     /**
      * Check user is existed or not
      */

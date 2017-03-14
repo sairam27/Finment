@@ -21,8 +21,8 @@ if (!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['email']
     $fid = $_POST['fid'];
     
     $confirmation=md5(uniqid(rand()));
-		$subject="Your confirmation link here";
-		$header= array("From: SJCE ","Content-type: text/html");
+		$subject="Financier confirmation link here";
+		$header= array("From: FINMENT ","Content-type: text/html");
 		$message='
 		
 			<html>
@@ -37,22 +37,22 @@ if (!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['email']
 			        	<strong>Hello, Welcome !</strong> 
 			        </div>
 			        <p> Dear User,<br><br>
-			       		 We really appreciate you signing up to SJCE. You are among 4000+ Users that will soon experience a modern Student Information System.
+			       		 We really appreciate you signing up to Finment. You are among 400+ Users that will soon experience a modern Finance Management System.
 			        </p><br>
 
 			        <div id="instructions">
 			                <div class="category">
-			                        <div class="category-heading" style="font-weight: 500; font-size: 16px;"> Students </div>
+			                        <div class="category-heading" style="font-weight: 500; font-size: 16px;"> CLIENTS </div>
 			                        <ul class="category-instructions">
-			                                <li> Just Login and start evaluating teachers as they appear.</li>
-			                                <li> Appraise a single teacher Completely before moving on to the next.</li>
+			                                <li> Just Login and start evaluating your Finance.</li>
+			                                <li> Appraise a single Investor Completely before moving on to the next.</li>
 			                        </ul>
 			                </div>
 			                <div class="category">
-			                        <div class="category-heading" style="font-weight: 500; font-size: 16px;"> HOD </div>
+			                        <div class="category-heading" style="font-weight: 500; font-size: 16px;"> INVESTORS </div>
 			                        <ul class="category-instructions">
-			                                <li>You can view statistics of any teacher in your department.</li>
-			                                <li>Just select the teacher, subject and competency</li>
+			                                <li>You can view statistics of any Investment in your Finance.</li>
+			                                <li>Just select the your finacier ,Investor and competency to see details in ur Home page</li>
 			                        </ul>
 			                </div>
 			        </div>
@@ -66,13 +66,13 @@ if (!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['email']
 
 			        <hr style="width:80%; color:grey; text-align: center;"><br>
 			        <div style="width:100%;background-color:#C0392B;line-height:40px;margin:0px auto;border-radius: .25rem;" >
-			        	<a href="http://localhost:80/Finment/confirm.php?fname='.$fname.'&passkey='.$confirmation.'&email='.$email.'" style="color:white;text-align:center;text-decoration:none;display:block;"> Activate My Account </a>
+			        	<a href="http://192.168.101.100:80/Finment/confirm.php?fname='.$fname.'&passkey='.$confirmation.'&email='.$email.'" style="color:white;text-align:center;text-decoration:none;display:block;"> Activate My Account </a>
 					</div>       
 			 		<br><br><br>
 	        		<div>
 		                 Thanks again, and if you ever have any questions or feedback, just send us an email :<br><br>
-		                 <span style="color:#C0392B;"> Basanth Jenu :</span> b@gmail.com <br>
-		                 <span style="color:#C0392B;"> Ajay Halthor : </span> a@gmail.com <br>
+		                 <span style="color:#C0392B;"> SAIRAM RAVI  :</span> ravi.sairam27@gmail.com <br>
+		                 <span style="color:#C0392B;"> VARUN J SHAH : </span> vjs281095@gmail.com <br>
 		                 <br>
 		                 We read &amp; respond to every request!
 	       			</div>
@@ -101,8 +101,8 @@ if (!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['email']
         }
     }
 } else {
-    $response["error"] = TRUE;
-    $response["error_msg"] = "Required parameters (name, email or password) is missing!";
+    $response["success"] = TRUE;
+    $response["message"] = "Required parameters (name, email or password) is missing!";
     echo json_encode($response);
 }
 ?>
