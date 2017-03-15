@@ -3,6 +3,8 @@ CREATE TABLE `investorrequest` (
   `email` varchar(100) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `amountinvest` text,
-  `approval` int(11) NOT NULL,
+  `amountback` text,
+  `iapproval` int(11) NOT NULL,
+  `bapproval` int(11) NOT NULL,
   `interestrate` double DEFAULT NULL,
 )

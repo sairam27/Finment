@@ -651,22 +651,22 @@ class DB_Functions {
         }
 }
     
-    public function clientfundrequest($fund,$email,$fid){
+    public function clientfundrequest($fund,$email,$fid,$category){
     $stmt = $this->conn->prepare("SELECT totrequested
             FROM clientrequest
             INNER JOIN 
             (SELECT access_id, MAX(created_at) as TopDate
             FROM clientrequest
-            WHERE access_id = ?
+            WHERE access_id = ? AND category = ?
             GROUP BY access_id) AS EachItem ON 
             EachItem.TopDate = clientrequest.created_at 
             AND EachItem.access_id = clientrequest.access_id");
-    $stmt->bind_param("s", $fid);
+    $stmt->bind_param("ss", $fid, $category);
     $stmt->execute();
     $prevfund = $stmt->get_result()->fetch_assoc();   
     $newfund = $prevfund["totrequested"]+ $fund;
-    $stmt = $this->conn->prepare("INSERT INTO clientrequest(access_id,email,created_at,amountrequested,totrequested,approval,interestrate) VALUES(?,?,NOW(),?,?,'0','2.50')");
-    $stmt->bind_param("ssss", $fid,$email,$fund,$newfund);
+    $stmt = $this->conn->prepare("INSERT INTO clientrequest(access_id,email,created_at,amountrequested,totrequested,bapproval,interestrate,category) VALUES(?,?,NOW(),?,?,'0','2.50',?)");
+    $stmt->bind_param("sssss", $fid,$email,$fund,$newfund,$category);
     $result=$stmt->execute();
     $stmt->close();
     if ($result) {
@@ -689,7 +689,120 @@ class DB_Functions {
         }
 }
     
+    public function clientfundrepay($fund,$email,$fid,$category){
+    $stmt = $this->conn->prepare("SELECT totrepay
+            FROM clientrequest
+            INNER JOIN 
+            (SELECT access_id, MAX(created_at) as TopDate
+            FROM clientrequest
+            WHERE access_id = ? AND category = ?
+            GROUP BY access_id) AS EachItem ON 
+            EachItem.TopDate = clientrequest.created_at 
+            AND EachItem.access_id = clientrequest.access_id");
+    $stmt->bind_param("ss", $fid, $category);
+    $stmt->execute();
+    $prevfund = $stmt->get_result()->fetch_assoc();   
+    $newfund = $prevfund["totrepay"]+ $fund;
+    $stmt = $this->conn->prepare("INSERT INTO clientrequest(access_id,email,created_at,amountrepay,totrepay,rapproval,interestrate,category) VALUES(?,?,NOW(),?,?,'0','0',?)");
+    $stmt->bind_param("sssss", $fid,$email,$fund,$newfund,$category);
+    $result=$stmt->execute();
+    $stmt->close();
+    if ($result) {
+            $stmt = $this->conn->prepare("SELECT totrepay FROM clientrequest WHERE access_id = ?");
+            $stmt->bind_param("s", $fid);
+            $stmt->execute();
+            $stmt->store_result();
+          if ($stmt->num_rows > 0) {
+            // user existed
+            $stmt->close();
+            return true;
+        } else {
+            // user not existed
+            $stmt->close();
+            return false;
+        }
+        
+        } else {
+            return false;
+        }
+}
     
+    public function investorfundin($fund,$email,$fid,$category){
+    $stmt = $this->conn->prepare("SELECT totamtinvest
+            FROM investorrequest
+            INNER JOIN 
+            (SELECT access_id, MAX(created_at) as TopDate
+            FROM investorrequest
+            WHERE access_id = ? AND category = ?
+            GROUP BY access_id) AS EachItem ON 
+            EachItem.TopDate = investorrequest.created_at 
+            AND EachItem.access_id = investorrequest.access_id");
+    $stmt->bind_param("ss", $fid, $category);
+    $stmt->execute();
+    $prevfund = $stmt->get_result()->fetch_assoc();   
+    $newfund = $prevfund["totamtinvest"]+ $fund;
+    $stmt = $this->conn->prepare("INSERT INTO investorrequest(access_id,email,created_at,amountinvest,totamtinvest,iapproval,interestrate,category) VALUES(?,?,NOW(),?,?,'0','1.50',?)");
+    $stmt->bind_param("sssss", $fid,$email,$fund,$newfund,$category);
+    $result=$stmt->execute();
+    $stmt->close();
+    if ($result) {
+            $stmt = $this->conn->prepare("SELECT totamtinvest FROM investorrequest WHERE access_id = ?");
+            $stmt->bind_param("s", $fid);
+            $stmt->execute();
+            $stmt->store_result();
+          if ($stmt->num_rows > 0) {
+            // user existed
+            $stmt->close();
+            return true;
+        } else {
+            // user not existed
+            $stmt->close();
+            return false;
+        }
+        
+        } else {
+            return false;
+        }
+}
+    
+    public function investorfundback($fund,$email,$fid,$category){
+    $stmt = $this->conn->prepare("SELECT totamtback
+            FROM investorrequest
+            INNER JOIN 
+            (SELECT access_id, MAX(created_at) as TopDate
+            FROM investorrequest
+            WHERE access_id = ? AND category = ?
+            GROUP BY access_id) AS EachItem ON 
+            EachItem.TopDate = investorrequest.created_at 
+            AND EachItem.access_id = investorrequest.access_id");
+    $stmt->bind_param("ss", $fid, $category);
+    $stmt->execute();
+    $prevfund = $stmt->get_result()->fetch_assoc();   
+    $newfund = $prevfund["totrepay"]+ $fund;
+    $stmt = $this->conn->prepare("INSERT INTO investorrequest(access_id,email,created_at,amountback,totamtback,baapproval,interestrate,category) VALUES(?,?,NOW(),?,?,'0','0',?)");
+    $stmt->bind_param("sssss", $fid,$email,$fund,$newfund,$category);
+    $result=$stmt->execute();
+    $stmt->close();
+    if ($result) {
+            $stmt = $this->conn->prepare("SELECT totamtback FROM investorrequest WHERE access_id = ?");
+            $stmt->bind_param("s", $fid);
+            $stmt->execute();
+            $stmt->store_result();
+          if ($stmt->num_rows > 0) {
+            // user existed
+            $stmt->close();
+            return true;
+        } else {
+            // user not existed
+            $stmt->close();
+            return false;
+        }
+        
+        } else {
+            return false;
+        }
+}
+
     /**
      * Check user is existed or not
      */

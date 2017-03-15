@@ -575,7 +575,9 @@ if(le==1 && lp==1){
             localStorage.setItem("fid",result.fid);
             localStorage.setItem("email",result.email);
             localStorage.setItem("totrequested",result.totrequested);
-            localStorage.setItem("approval",result.approval);
+            localStorage.setItem("bapproval",result.bapproval);
+            localStorage.setItem("totrepay",result.totrepay);
+            localStorage.setItem("rapproval",result.rapproval);
             location.assign('http://localhost:80/Finment/Client.php');
                 }else{
             $(".sign11").removeClass('has-success').addClass('has-error');
@@ -605,6 +607,10 @@ if(le==1 && lp==1){
             localStorage.setItem("mobile",result.mobile);
             localStorage.setItem("fid",result.fid);
             localStorage.setItem("email",result.email);
+            localStorage.setItem("totamtinvest",result.totamtinvest);
+            localStorage.setItem("iapproval",result.iapproval);
+            localStorage.setItem("totamtback",result.totamtback);
+            localStorage.setItem("baapproval",result.baapproval);
             location.assign('http://localhost:80/Finment/Investor.php');
         }else{
             $(".sign11").removeClass('has-success').addClass('has-error');

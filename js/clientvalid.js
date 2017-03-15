@@ -5,16 +5,23 @@ var cf=0,cl=0,cm=0,x=0,y=0;
 var flname=localStorage.getItem("fname");
 var llname= localStorage.getItem("lname");
 var mobile1 = localStorage.getItem("mobile");
-var approval = localStorage.getItem("approval");
+var bapproval = localStorage.getItem("bapproval");
 var totrequested = localStorage.getItem("totrequested");
+var rapproval = localStorage.getItem("rapproval");
+var totrepay = localStorage.getItem("totrepay");
 $('.navbar-nav .btn-trial1 a').text(flname+"."+llname);
 $("#chanfname").attr("value",flname);
 $("#chanlname").attr("value",llname);
 $("#chanmobile").attr("value",mobile1);
-if(parseInt(approval)=='1')
+if(parseInt(bapproval)=='1')
 $(".borrowed").text(totrequested);
-if(parseInt(approval)=='0')
+if(parseInt(bapproval)=='0')
 $(".borrowed").text("Pending");
+if(parseInt(rapproval)=='1')
+$(".repaid").text(totrequested);
+if(parseInt(rapproval)=='0')
+$(".repaid").text("Pending");
+
 
 $(document).on('click','.logout-btn a',function(){
     localStorage.clear();
@@ -352,13 +359,15 @@ $(document).on('click','.addloan-btn',function(event){
     var fund = $('.fund').val();
     var fid = localStorage.getItem("fid");
     var email = localStorage.getItem("email");
+    var category="loan"
     $(this).find($(".register15")).removeClass('has-error').addClass('has-success');
     $(this).find($(".register15")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
     if($.isNumeric(fund)){
     $.post("http://localhost:80/Finment/clientfuc.php",{
         fund:fund,
         fid:fid,
-        email:email
+        email:email,
+        category:category
         },function(data){
         var result = JSON.parse(data);
         if(result.success){
@@ -382,18 +391,52 @@ $(document).on('click','.borroweddetails',function(event){
    $("#borroweddetails").modal();
     var fid= localStorage.getItem("fid");
     var email = localStorage.getItem("email");
+    var category = "loan";
     var content = '';
-    $.post("http://localhost:80/Finment/borroweddetails.php",{fid:fid,email:email},function(data){
-        var json = jQuery.parseJSON(data);   
-            for(var i=0;i<5;i++){
+    $.post("http://localhost:80/Finment/borroweddetails.php",{fid:fid,email:email,category:category},function(data){
+        var json = jQuery.parseJSON(data); 
+        var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
             content += '<tr>';
             content += '<td>' + json[i].created_at + '</td>';
             content += '<td class="text-right">' + json[i].amountrequested + '</td>';
             content += '<td class="text-right">' + json[i].interestrate + '</td>';
             content += '<td class="text-right">' + json[i].totrequested + '</td>';
-            content += '<td class="text-right">' + json[i].approval + '</td>';
+            content += '<td class="text-right">' + json[i].bapproval + '</td>';
             content += '</tr>';
             }
         $("#tblbody3").html(content);
     }); 
+});
+
+$(document).on('click','.repay-btn',function(event){
+    var fund = $('.repay').val();
+    var fid = localStorage.getItem("fid");
+    var email = localStorage.getItem("email");
+    var category="repay";
+    $(this).find($(".register16")).removeClass('has-error').addClass('has-success');
+    $(this).find($(".register16")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
+    if($.isNumeric(fund)){
+    $.post("http://localhost:80/Finment/clientfuc.php",{
+        fund:fund,
+        fid:fid,
+        email:email,
+        category:category
+        },function(data){
+        var result = JSON.parse(data);
+        if(result.success){
+           $(".register16").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+            $(".register16").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
+            var message1="fund requested successfully"
+           $('#signup-message6').html(message1);
+        }else{
+           $(".register16").removeClass('has-success').addClass('has-error');
+                $(".register16").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
+            $('#signup-message6').html(result.message);
+        }
+    });
+    }else{
+        var message2="Validation not approved"
+        $('#signup-message5').html(message2);
+    }
 });

@@ -12,9 +12,9 @@ if (!empty($_POST['email']) && !empty($_POST['fund']) && !empty($_POST['fid']) &
     $fund=$_POST['fund'];
     $fid=$_POST['fid'];
     $category=$_POST['category'];
-    if($category=="loan"){
-    if($db->isclientExisted($email)){
-        if($db->clientfundrequest($fund,$email,$fid,$category)){
+    if($category=="invest"){
+    if($db->isinvestorExisted($email)){
+        if($db->investorfundin($fund,$email,$fid,$category)){
             $response["success"] = TRUE;
             $response["messgae"] = "Fund Inserted to DB";
             echo json_encode($response);
@@ -28,9 +28,9 @@ if (!empty($_POST['email']) && !empty($_POST['fund']) && !empty($_POST['fid']) &
     $response["message"] = "email doesnt exist";
     echo json_encode($response);
     }
-    }else if($category=="repay"){
-        if($db->isclientExisted($email)){
-        if($db->clientfundrepay($fund,$email,$fid,$category)){
+    }else if($category=="backamt"){
+        if($db->isinvestorExisted($email)){
+        if($db->investorfundback($fund,$email,$fid,$category)){
             $response["success"] = TRUE;
             $response["messgae"] = "Fund Inserted to DB";
             echo json_encode($response);

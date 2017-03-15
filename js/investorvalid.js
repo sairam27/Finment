@@ -5,6 +5,10 @@ var cf=0,cl=0,cm=0,x=0,y=0;
 var flname=localStorage.getItem("fname");
 var llname= localStorage.getItem("lname");
 var mobile1 = localStorage.getItem("mobile");
+var iapproval = localStorage.getItem("iapproval");
+var totrequested = localStorage.getItem("totamtinvest");
+var baapproval = localStorage.getItem("baapproval");
+var totrepay = localStorage.getItem("totamtback");
 $('.navbar-nav .btn-trial1 a').text(flname+"."+llname);
 $("#chanfname").attr("value",flname);
 $("#chanlname").attr("value",llname);
@@ -346,21 +350,20 @@ $(document).on('click','.newinvest-btn',function(event){
     var fund = $('.fund').val();
     var fid = localStorage.getItem("fid");
     var email = localStorage.getItem("email");
+    var category = "invest"
     $(this).find($(".register15")).removeClass('has-error').addClass('has-success');
     $(this).find($(".register15")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
     if($.isNumeric(fund)){
-    $.post("http://localhost:80/Finment/financierfuc.php",{
+    $.post("http://localhost:80/Finment/investorfuc.php",{
         fund:fund,
         fid:fid,
-        email:email
+        email:email,
+        category:category
         },function(data){
         var result = JSON.parse(data);
         if(result.success){
            $(".register15").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
             $(".register15").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
-            localStorage.setItem("balance",parseInt(balance1)+parseInt(fund));
-            var balance2 =localStorage.getItem("balance");
-            $("#balanceamount").text(balance2);
             var message1="fund inserted successfully"
            $('#signup-message5').html(message1);
         }else{
@@ -374,3 +377,36 @@ $(document).on('click','.newinvest-btn',function(event){
         $('#signup-message5').html(message2);
     }
 });
+
+$(document).on('click','.amtback-btn',function(event){
+    var fund = $('.amtback').val();
+    var fid = localStorage.getItem("fid");
+    var email = localStorage.getItem("email");
+    var category="backamt";
+    $(this).find($(".register16")).removeClass('has-error').addClass('has-success');
+    $(this).find($(".register16")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
+    if($.isNumeric(fund)){
+    $.post("http://localhost:80/Finment/clientfuc.php",{
+        fund:fund,
+        fid:fid,
+        email:email,
+        category:category
+        },function(data){
+        var result = JSON.parse(data);
+        if(result.success){
+           $(".register16").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+            $(".register16").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
+            var message1="fund requested successfully"
+           $('#signup-message6').html(message1);
+        }else{
+           $(".register16").removeClass('has-success').addClass('has-error');
+                $(".register16").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
+            $('#signup-message6').html(result.message);
+        }
+    });
+    }else{
+        var message2="Validation not approved"
+        $('#signup-message5').html(message2);
+    }
+});
+

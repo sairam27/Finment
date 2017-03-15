@@ -299,7 +299,7 @@
               <!-- Plan  -->
               <div class="pricing-head">
                 <h2>Amount Repayed</h2>
-             <span class="fa fa-inr curency"></span><span class="amount">0</span> 
+             <span class="fa fa-inr curency"></span><span class="amount repaid">0</span> 
               </div>
                  <div class="row">
                 <div class="col-xs-12">
@@ -393,14 +393,14 @@
                           </div>
                       </div>
                       <div class="col-xs-12">
-                          <button type="button" class="btn repay-btn btn-green btn-block btn-flat"> Request Money <span id="register15" class="glyphicon register15"></span></button>
+                          <button type="button" class="btn repay-btn btn-green btn-block btn-flat"> Request Money <span id="register16" class="glyphicon register16"></span></button>
                       </div>
                   </div>
                 </form>
               </div>
             </div>
               <div class="modal-footer">
-          <div class="message pull-left" id="signup-message5"></div>
+          <div class="message pull-left" id="signup-message6"></div>
         </div>
           </div>
         </div>

@@ -181,7 +181,7 @@
               <!-- Plan  -->
               <div class="pricing-head">
                 <h2>Investments</h2>
-               <span class="fa fa-inr curency"></span> <span class="amount">0</span> 
+               <span class="fa fa-inr curency"></span> <span class="amount invested">0</span> 
               </div>
                 <div class="row">
                 <div class="col-xs-12">
@@ -191,7 +191,7 @@
           
               <!-- Plean Detail -->
               <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg green btn-block">Add Funds</a> 
+                <a href="#" class="btn btn-bg green btn-block" data-target="#amtbackmodal" data-toggle="modal">Withdraw Amount</a> 
               </div>
             </div>
             </div>
@@ -235,11 +235,6 @@
                 <div class="price-in mart-15">
                 <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
               </div>
-          
-              <!-- Plean Detail -->
-              <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg green btn-block">Summary</a> 
-              </div>
             </div>
             </div>
             </div>
@@ -257,19 +252,10 @@
                 <div class="price-in mart-15">
                 <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
               </div>
-          
-              <!-- Plean Detail -->
-              <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg green btn-block">Summary</a> 
-              </div>
             </div>
             </div>
             </div>
           </div>
-            
-            
-                
-         
         </div>
       </div>
     </section>
@@ -337,11 +323,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title text-center form-title">Add funds</h4>
+            <h4 class="modal-title text-center form-title">Add funds to finance</h4>
           </div>
           <div class="modal-body padtrbl">
             <div class="login-box-body">
-              <p class="login-box-msg">Request Money From Investor</p>
+              <p class="login-box-msg">Request Investment with Financier</p>
               <div class="form-group">
                 <form name="" id="loginForm">
                  <div class="form-group has-feedback"> <!----- username -------------->
@@ -363,7 +349,7 @@
                           </div>
                       </div>
                       <div class="col-xs-12">
-                          <button type="button" class="btn newinvest-btn btn-green btn-block btn-flat"> Request Investment <span id="register15" class="glyphicon register11"></span></button>
+                          <button type="button" class="btn newinvest-btn btn-green btn-block btn-flat"> Request Investment <span id="register15" class="glyphicon register15"></span></button>
                       </div>
                   </div>
                 </form>
@@ -378,6 +364,51 @@
       </div>
     </div>
 <!--/new investment-->
+        
+<!--repay-->
+<div class="modal fade" id="amtbackmodal" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Request funds back</h4>
+          </div>
+          <div class="modal-body padtrbl">
+            <div class="login-box-body">
+              <p class="login-box-msg">Request Money From Financier</p>
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"> <!----- username -------------->
+                      <input class="form-control amtback" placeholder="Amount" type="text" autocomplete="off"/>
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="fa fa-inr form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="checkbox icheck">
+                              <label>
+                                <input type="checkbox" id="sure">yes Iam sure.
+                              </label>
+                          </div>
+                      </div>
+                      <div class="col-xs-12">
+                          <button type="button" class="btn amtback-btn btn-green btn-block btn-flat"> Request Money <span id="register16" class="glyphicon register16"></span></button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="signup-message6"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!--/repay-->        
         
 <!--editprofile-->
 <div class="modal fade" id="editprof" role="dialog">

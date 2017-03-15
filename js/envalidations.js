@@ -1193,7 +1193,8 @@ $(document).on('click','.clientdetails-btn',function(){
     var content = '';
     $.post("http://localhost:80/Finment/clientdetails.php",{fid:fid},function(data){
         var json = jQuery.parseJSON(data);
-            for(var i=0;i<(clients1);i++){
+         var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
             content += '<tr>';
             content += '<td><input type="checkbox"/></td>';
             content += '<td>' + json[i].fname + '</td>';
@@ -1211,7 +1212,8 @@ $(document).on('click','.investordetails-btn',function(){
     var content = '';
     $.post("http://localhost:80/Finment/investordetails.php",{fid:fid},function(data){
         var json = jQuery.parseJSON(data);
-            for(var i=0;i<(investors1);i++){
+         var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
             content += '<tr>';
             content += '<td><input type="checkbox"/></td>';
             content += '<td>' + json[i].fname + '</td>';
@@ -1229,7 +1231,8 @@ $(document).on('click','.balancedetails-btn',function(){
     var content = '';
     $.post("http://localhost:80/Finment/balancedetails.php",{fid:fid},function(data){
         var json = jQuery.parseJSON(data);
-            for(var i=0;i<5;i++){
+         var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
             content += '<tr>';
             content += '<td>' + json[i].created_at + '</td>';
             content += '<td class="text-right">' + json[i].amountadded + '</td>';
