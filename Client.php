@@ -13,9 +13,11 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
     <link rel="stylesheet" type="text/css" href="css/clientstyles.css">
-      <style>
 
-
+</head>
+    
+<body>
+<style>
 .img-structure{
   width:32px;
   height: 32px;
@@ -49,9 +51,6 @@
     }
 }
 
-
-
-
 @media (min-width:768px){
   .mobile{
     display: none;
@@ -78,12 +77,25 @@
     }
 }
 
-</style>
-  </head>
+    .btn-green, .btn-green:hover{
+    background-color: #5fcf80;
+    color: #fff;
+}
+    .modal-dialog {
+    width: 600px;
+    margin: 150px auto;
+}
+.modal-sm {
+    width: 300px;
+    }
+.modal-content h4 {
+    font-size: 0.5em;
+    font-weight: 700;
+}
+</style>    
     
-    <body>
-    <!--Navigation bar-->
-  <nav class="navbar navbar-default navbar-fixed-top">
+<!--Navigation bar-->
+<nav class="navbar navbar-default navbar-fixed-top">
         
       <div class="container">
         <div class="navbar-header">
@@ -101,18 +113,17 @@
         </div> 
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav ">
-        <li class="btn-trial12"><a href="#"> Client </a></li>
+        <li class="btn-trial1"><a href="#"> Client </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-              <li class="btn-trial"><a href="#footer">New Loan</a></li>
+              <li class="btn-trial"><a href="#" data-target="#newloan" data-toggle="modal">New Loan</a></li>
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>  &nbsp; Profile Settings <b class="caret"></b></a>
                 <ul class="dropdown-menu animated fadeInDown">
-                    <li><a href="index.html">Edit Profile</a></li>
-                     <li><a href="index.html">Change Mobile/Email</a></li>
-                     <li><a href="index.html">Change Password</a></li>
+                    <li><a href="#" data-target="#editprof" data-toggle="modal">Edit Profile</a></li>
+                     <li><a href="#" data-target="#chanpass" data-toggle="modal">Change Password</a></li>
                 </ul>
-                <li class="btn-trial"><a href="#footer">Logout</a></li>
+                <li class="btn-trial logout-btn"><a href="#">Logout</a></li>
                 <li class="desktop"><a href="#" data-target="#photo-upload-modal" data-toggle="modal">
                     <?php 
                         /* Load the profile.jpg/png if present. otherwise, load the logo*/
@@ -132,10 +143,10 @@
           </div>
         </div>
     </nav>
-    <!--/ Navigation bar-->
+<!--/ Navigation bar-->
         
-        <!-- Photo upload Modal -->
-    <div class="modal fade" id="photo-upload-modal" role="dialog">
+<!-- Photo upload Modal -->
+<div class="modal fade" id="photo-upload-modal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -151,10 +162,114 @@
       
     </div>
   </div>
-        <!--/ photo upload modal -->
+<!--/ photo upload modal -->
  
-    <!--Pricing-->
-    <section id ="pricing" class="section-padding">
+<!--chan pass-->
+<div class="modal fade" id="chanpass" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Change Password</h4>
+          </div>
+          <div class="modal-body padtrbl">
+
+            <div class="login-box-body">
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"><!-----previous password -------------->
+                      <input class="form-control prevfpsw" placeholder="Previous Password" id="prevfpsw" type="password" autocomplete="off" />
+            <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback"><!-----new password -------------->
+                      <input class="form-control newfpsw" placeholder="New Password" id="newfpsw" type="password" autocomplete="off" />
+            <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback "><!-----confirmnew password -------------->
+                      <input class="form-control confnewfpsw" placeholder="Confirm Password" id="confnewfpsw" type="password" autocomplete="off" />
+            <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="checkbox icheck">
+                              <label>
+                                <input type="checkbox" id="loginrem" > I am sure
+                              </label>
+                          </div>
+                      </div>
+                      <div class="col-xs-12">
+                          <button type="button" class="btn chanpass-btn btn-green btn-block btn-flat">Save</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="change-message"></div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--/chan pass-->
+    
+<!--new loan-->
+<div class="modal fade" id="newloan" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Request funds</h4>
+          </div>
+          <div class="modal-body padtrbl">
+            <div class="login-box-body">
+              <p class="login-box-msg">Request Money From Investor</p>
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"> <!----- username -------------->
+                      <input class="form-control fund" placeholder="Amount"  id="loginid" type="text" autocomplete="off"/>
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="fa fa-inr form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback"> <!----- interestrate -------------->
+                      <input class="form-control interestrate" placeholder="Amount"  id="interestrate" type="text" autocomplete="off" readonly value="2.50ps/100Rs/Month"/>
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="fa fa-inr form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="checkbox icheck">
+                              <label>
+                                <input type="checkbox" id="sure">yes Iam sure.
+                              </label>
+                          </div>
+                      </div>
+                      <div class="col-xs-12">
+                          <button type="button" class="btn addloan-btn btn-green btn-block btn-flat"> Request Money <span id="register15" class="glyphicon register15"></span></button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="signup-message5"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!--/new loan-->
+    
+<!--Pricing-->
+<section id ="pricing" class="section-padding">
       <div class="container">
         <div class="row">
           <div class="header-section text-center">
@@ -167,18 +282,14 @@
               <!-- Plan  -->
               <div class="pricing-head">
                 <h2>Amount Borrowed</h2>
-               <span class="fa fa-inr curency"></span> <span class="amount">0</span> 
+                  <span class="fa fa-inr curency"></span><span class="amount borrowed">0</span> 
               </div>
                 <div class="row">
                 <div class="col-xs-12">
                 <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
+                <a href="#" class="btn btn-bg1 borroweddetails green btn-block">Details</a> 
               </div>
-          
-              <!-- Plean Detail -->
-              <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg green btn-block">Summary</a> 
-              </div>
+                <br>
             </div>
             </div>
             </div>
@@ -193,12 +304,12 @@
                  <div class="row">
                 <div class="col-xs-12">
                 <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
+                <a href="#" class="btn btn-bg1 green btn-block" data-target="#repaymodal" data-toggle="modal">Repay</a> 
               </div>
-          
+                <br>
               <!-- Plean Detail -->
               <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg green btn-block">Summary</a> 
+                <a href="#" class="btn btn-bg green btn-block">Details</a> 
               </div>
             </div>
             </div>
@@ -221,11 +332,7 @@
                 <div class="price-in mart-15">
                 <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
               </div>
-          
-              <!-- Plean Detail -->
-              <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg green btn-block">Summary</a> 
-              </div>
+                <br>
             </div>
             </div>
             </div>
@@ -243,11 +350,7 @@
                 <div class="price-in mart-15">
                 <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
               </div>
-          
-              <!-- Plean Detail -->
-              <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg green btn-block">Summary</a> 
-              </div>
+                <br>
             </div>
             </div>
             </div>
@@ -259,13 +362,156 @@
         </div>
       </div>
     </section>
-    <!--/ Pricing--> 
+<!--/ Pricing--> 
+    
+<!--repay-->
+<div class="modal fade" id="repaymodal" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Request funds</h4>
+          </div>
+          <div class="modal-body padtrbl">
+            <div class="login-box-body">
+              <p class="login-box-msg">Request Money From Investor</p>
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"> <!----- username -------------->
+                      <input class="form-control repay" placeholder="Amount" type="text" autocomplete="off"/>
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="fa fa-inr form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="checkbox icheck">
+                              <label>
+                                <input type="checkbox" id="sure">yes Iam sure.
+                              </label>
+                          </div>
+                      </div>
+                      <div class="col-xs-12">
+                          <button type="button" class="btn repay-btn btn-green btn-block btn-flat"> Request Money <span id="register15" class="glyphicon register15"></span></button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="signup-message5"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!--/repay-->
+        
+    
+<!--editprofile-->
+<div class="modal fade" id="editprof" role="dialog">
+<div class="modal-dialog modal-sm">
+      
+<!-- Modal content no 1-->
+<div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Edit profile</h4>
+          </div>
+          <div class="modal-body padtrbl">
+
+            <div class="login-box-body">
+              <p class="login-box-msg">Edit Your Details</p>
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"> <!-----first username -------------->
+                      <input class="form-control cfname-validation" placeholder="First Name"  id="chanfname" type="text" autocomplete="off" readonly /> 
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback"> <!-----last username -------------->
+                      <input class="form-control clname-validation" placeholder="Last Name"  id="chanlname" type="text" autocomplete="off" readonly /> 
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback"> <!----- mobile -------------->
+                      <input class="form-control cmobile-validation" placeholder="Mobile"  id="chanmobile" type="text" autocomplete="off" readonly/> 
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="checkbox icheck">
+                              <label>
+                                <input type="checkbox" id="loginrem" > I am sure
+                              </label>
+                          </div>
+                      </div>
+                      <div class="col-xs-6">
+                          <button type="button" class="btn editprof-btn btn-green btn-block btn-flat">edit</button>
+                      </div>
+                      <div class="col-xs-6">
+                          <button type="button" class="btn editprof-btnsave btn-green btn-block btn-flat">Save</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="editprof-message"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!--/ editprofile-->
+    
+<!--Balance details-->
+<div class="modal fade" id="borroweddetails" >
+      <div class="modal-dialog modal-sm">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title">Requested funds</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped" id="tblGrid">
+            <thead id="tblHead">
+              <tr> 
+                <th>DATE</th>  
+                <th class="text-right">Amount_requested</th>
+                <th class="text-right">Interestrate</th>
+                <th class="text-right">Total</th>
+                <th>approval</th>  
+              </tr>
+            </thead>
+            <tbody id="tblbody3">
+              
+              
+            </tbody>
+          </table>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+        </div>
+				
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+        
+      </div>
+    </div>
+<!--/Balance details-->      
+
         
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.flexslider.js"></script>
-    <script src="js/clientvald.js"></script>
+    <script src="js/clientvalid.js"></script>
     <script src="contactform/contactform.js"></script>
-    </body>
+</body>
 </html>

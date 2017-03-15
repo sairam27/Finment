@@ -574,6 +574,8 @@ if(le==1 && lp==1){
             localStorage.setItem("mobile",result.mobile);
             localStorage.setItem("fid",result.fid);
             localStorage.setItem("email",result.email);
+            localStorage.setItem("totrequested",result.totrequested);
+            localStorage.setItem("approval",result.approval);
             location.assign('http://localhost:80/Finment/Client.php');
                 }else{
             $(".sign11").removeClass('has-success').addClass('has-error');

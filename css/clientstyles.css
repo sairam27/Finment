@@ -161,7 +161,17 @@ Canvas {
 .min-btn-padding{
 	padding:4px 8px;
 }
-
+.modal-dialog {
+    width: 600px;
+    margin: 150px auto;
+}
+.modal-sm {
+    width: 300px;
+}
+.modal-content h4 {
+    font-size: 0.5em;
+    font-weight: 700;
+}
 
 
 /***********************************

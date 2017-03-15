@@ -445,7 +445,7 @@ class DB_Functions {
     
     public function getUserByEmailAndPasswordandfidandclient($email, $password, $fid) {
 
-        $stmt = $this->conn->prepare("SELECT * FROM clients WHERE email = ? AND access_id= ?");
+        $stmt = $this->conn->prepare("SELECT * FROM clients WHERE email = ? AND access_id = ?");
 
         $stmt->bind_param("ss", $email, $fid);
 
@@ -491,19 +491,19 @@ class DB_Functions {
         }
     }
 
-	public function changePassword($email, $newpass) {
-        $hash = $this->hashSSHA($newpass);
+	public function changePassword($email, $newfpsw) {
+        $hash = $this->hashSSHA($newfpsw);
         $encrypted_password = $hash["encrypted"]; // encrypted password
         $salt = $hash["salt"]; // salt
 
-        $stmt = $this->conn->prepare("UPDATE users set encrypted_password=?,salt=?,updated_at=NOW(),password=? WHERE email=?");
-        $stmt->bind_param("ssss", $encrypted_password,$salt,$newpass,$email);
+        $stmt = $this->conn->prepare("UPDATE financiers set encrypted_password=?,salt=?,updated_at=NOW(),password1=? WHERE email=?");
+        $stmt->bind_param("ssss", $encrypted_password,$salt,$newfpsw,$email);
         $result = $stmt->execute();
         $stmt->close();
 
         // check for successful store
         if ($result) {
-            $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+            $stmt = $this->conn->prepare("SELECT * FROM financiers WHERE email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
             $user = $stmt->get_result()->fetch_assoc();
@@ -514,6 +514,56 @@ class DB_Functions {
             return false;
         }
     }
+    
+    public function changePasswordclient($email, $newfpsw) {
+        $hash = $this->hashSSHA($newfpsw);
+        $encrypted_password = $hash["encrypted"]; // encrypted password
+        $salt = $hash["salt"]; // salt
+
+        $stmt = $this->conn->prepare("UPDATE clients set encrypted_password=?,salt=?,updated_at=NOW(),password1=? WHERE email=?");
+        $stmt->bind_param("ssss", $encrypted_password,$salt,$newfpsw,$email);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        // check for successful store
+        if ($result) {
+            $stmt = $this->conn->prepare("SELECT * FROM clients WHERE email = ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $user = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+
+            return $user;
+        } else {
+            return false;
+        }
+    }
+
+    
+    public function changePasswordinvestor($email, $newfpsw) {
+        $hash = $this->hashSSHA($newfpsw);
+        $encrypted_password = $hash["encrypted"]; // encrypted password
+        $salt = $hash["salt"]; // salt
+
+        $stmt = $this->conn->prepare("UPDATE investors set encrypted_password=?,salt=?,updated_at=NOW(),password1=? WHERE email=?");
+        $stmt->bind_param("ssss", $encrypted_password,$salt,$newfpsw,$email);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        // check for successful store
+        if ($result) {
+            $stmt = $this->conn->prepare("SELECT * FROM investors WHERE email = ?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $user = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+
+            return $user;
+        } else {
+            return false;
+        }
+    }
+
 
 	  /**
      * Get user by mobile and password
@@ -600,6 +650,46 @@ class DB_Functions {
             return false;
         }
 }
+    
+    public function clientfundrequest($fund,$email,$fid){
+    $stmt = $this->conn->prepare("SELECT totrequested
+            FROM clientrequest
+            INNER JOIN 
+            (SELECT access_id, MAX(created_at) as TopDate
+            FROM clientrequest
+            WHERE access_id = ?
+            GROUP BY access_id) AS EachItem ON 
+            EachItem.TopDate = clientrequest.created_at 
+            AND EachItem.access_id = clientrequest.access_id");
+    $stmt->bind_param("s", $fid);
+    $stmt->execute();
+    $prevfund = $stmt->get_result()->fetch_assoc();   
+    $newfund = $prevfund["totrequested"]+ $fund;
+    $stmt = $this->conn->prepare("INSERT INTO clientrequest(access_id,email,created_at,amountrequested,totrequested,approval,interestrate) VALUES(?,?,NOW(),?,?,'0','2.50')");
+    $stmt->bind_param("ssss", $fid,$email,$fund,$newfund);
+    $result=$stmt->execute();
+    $stmt->close();
+    if ($result) {
+            $stmt = $this->conn->prepare("SELECT totrequested FROM clientrequest WHERE access_id = ?");
+            $stmt->bind_param("s", $fid);
+            $stmt->execute();
+            $stmt->store_result();
+          if ($stmt->num_rows > 0) {
+            // user existed
+            $stmt->close();
+            return true;
+        } else {
+            // user not existed
+            $stmt->close();
+            return false;
+        }
+        
+        } else {
+            return false;
+        }
+}
+    
+    
     /**
      * Check user is existed or not
      */

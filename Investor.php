@@ -77,13 +77,28 @@
       margin: 30px auto;
     }
 }
+          .btn-green, .btn-green:hover{
+    background-color: #5fcf80;
+    color: #fff;
+}
+          .modal-dialog {
+    width: 600px;
+    margin: 150px auto;
+}
+.modal-sm {
+    width: 300px;
+    }
+.modal-content h4 {
+    font-size: 0.5em;
+    font-weight: 700;
+}
 
 </style>
   </head>
     
     <body>
-    <!--Navigation bar-->
-  <nav class="navbar navbar-default navbar-fixed-top">
+<!--Navigation bar-->
+<nav class="navbar navbar-default navbar-fixed-top">
         
       <div class="container">
         <div class="navbar-header">
@@ -101,18 +116,17 @@
         </div> 
         <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav ">
-        <li class="btn-trial11"><a href="#"> INVESTOR </a></li>
+        <li class="btn-trial1 "><a href="#"> INVESTOR </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-              <li class="btn-trial"><a href="#">New Investment</a></li>
+              <li class="btn-trial"><a href="#" data-target="#newinvest" data-toggle="modal" >New Investment</a></li>
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>  &nbsp; Profile Settings <b class="caret"></b></a>
                 <ul class="dropdown-menu animated fadeInDown">
-                    <li><a href="index.html">Edit Profile</a></li>
-                     <li><a href="index.html">Change Mobile/Email</a></li>
-                     <li><a href="index.html">Change Password</a></li>
+                    <li><a href="#" data-target="#editprof" data-toggle="modal">Edit Profile</a></li>
+                     <li><a href="#" data-target="#chanpass" data-toggle="modal">Change Password</a></li>
                 </ul>
-                <li class="btn-trial"><a href="#footer">Logout</a></li>
+                <li class="btn-trial logout-btn"><a href="#">Logout</a></li>
                 <li class="desktop"><a href="#" data-target="#photo-upload-modal" data-toggle="modal">
                     <?php 
                         /* Load the profile.jpg/png if present. otherwise, load the logo*/
@@ -132,10 +146,10 @@
           </div>
         </div>
     </nav>
-    <!--/ Navigation bar-->
+<!--/ Navigation bar-->
         
-        <!-- Photo upload Modal -->
-    <div class="modal fade" id="photo-upload-modal" role="dialog">
+<!-- Photo upload Modal -->
+<div class="modal fade" id="photo-upload-modal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -151,10 +165,10 @@
       
     </div>
   </div>
-        <!--/ photo upload modal -->
+<!--/ photo upload modal -->
  
-    <!--Pricing-->
-    <section id ="pricing" class="section-padding">
+<!--Pricing-->
+<section id ="pricing" class="section-padding">
       <div class="container">
         <div class="row">
           <div class="header-section text-center">
@@ -259,13 +273,176 @@
         </div>
       </div>
     </section>
-    <!--/ Pricing--> 
+<!--/ Pricing--> 
+
+<!--chan pass-->
+<div class="modal fade" id="chanpass" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Change Password</h4>
+          </div>
+          <div class="modal-body padtrbl">
+
+            <div class="login-box-body">
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"><!-----previous password -------------->
+                      <input class="form-control prevfpsw" placeholder="Previous Password" id="prevfpsw" type="password" autocomplete="off" />
+            <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback"><!-----new password -------------->
+                      <input class="form-control newfpsw" placeholder="New Password" id="newfpsw" type="password" autocomplete="off" />
+            <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback "><!-----confirmnew password -------------->
+                      <input class="form-control confnewfpsw" placeholder="Confirm Password" id="confnewfpsw" type="password" autocomplete="off" />
+            <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="checkbox icheck">
+                              <label>
+                                <input type="checkbox" id="loginrem" > I am sure
+                              </label>
+                          </div>
+                      </div>
+                      <div class="col-xs-12">
+                          <button type="button" class="btn chanpass-btn btn-green btn-block btn-flat">Save</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="change-message"></div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--/chan pass-->
+        
+<!--new investment-->
+<div class="modal fade" id="newinvest" role="dialog">
+      <div class="modal-dialog modal-sm">
+      
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Add funds</h4>
+          </div>
+          <div class="modal-body padtrbl">
+            <div class="login-box-body">
+              <p class="login-box-msg">Request Money From Investor</p>
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"> <!----- username -------------->
+                      <input class="form-control fund" placeholder="Amount"  id="loginid" type="text" autocomplete="off"/>
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="fa fa-inr form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback"> <!----- interestrate -------------->
+                      <input class="form-control interestrate" placeholder="Amount"  id="interestrate" type="text" autocomplete="off" readonly value="1.50ps/100Rs/Month"/>
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="fa fa-inr form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="checkbox icheck">
+                              <label>
+                                <input type="checkbox" id="sure">yes Iam sure.
+                              </label>
+                          </div>
+                      </div>
+                      <div class="col-xs-12">
+                          <button type="button" class="btn newinvest-btn btn-green btn-block btn-flat"> Request Investment <span id="register15" class="glyphicon register11"></span></button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="signup-message5"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!--/new investment-->
+        
+<!--editprofile-->
+<div class="modal fade" id="editprof" role="dialog">
+<div class="modal-dialog modal-sm">
+      
+<!-- Modal content no 1-->
+<div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title text-center form-title">Edit profile</h4>
+          </div>
+          <div class="modal-body padtrbl">
+
+            <div class="login-box-body">
+              <p class="login-box-msg">Edit Your Details</p>
+              <div class="form-group">
+                <form name="" id="loginForm">
+                 <div class="form-group has-feedback"> <!-----first username -------------->
+                      <input class="form-control cfname-validation" placeholder="First Name"  id="chanfname" type="text" autocomplete="off" readonly /> 
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback"> <!-----last username -------------->
+                      <input class="form-control clname-validation" placeholder="Last Name"  id="chanlname" type="text" autocomplete="off" readonly /> 
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback"> <!----- mobile -------------->
+                      <input class="form-control cmobile-validation" placeholder="Mobile"  id="chanmobile" type="text" autocomplete="off" readonly/> 
+            <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                      <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                  </div>
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <div class="checkbox icheck">
+                              <label>
+                                <input type="checkbox" id="loginrem" > I am sure
+                              </label>
+                          </div>
+                      </div>
+                      <div class="col-xs-6">
+                          <button type="button" class="btn editprof-btn btn-green btn-block btn-flat">edit</button>
+                      </div>
+                      <div class="col-xs-6">
+                          <button type="button" class="btn editprof-btnsave btn-green btn-block btn-flat">Save</button>
+                      </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="editprof-message"></div>
+        </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<!--/ editprofile-->        
         
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.flexslider.js"></script>
-    <script src="js/clientvald.js"></script>
+    <script src="js/investorvalid.js"></script>
     <script src="contactform/contactform.js"></script>
     </body>
 </html>

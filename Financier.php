@@ -298,17 +298,17 @@ Price Table
               <div class="form-group">
                 <form name="" id="loginForm">
                  <div class="form-group has-feedback"><!-----previous password -------------->
-                      <input class="form-control" placeholder="Previous Password" id="prevfpsw" type="password" autocomplete="off" />
+                      <input class="form-control prevfpsw" placeholder="Previous Password" id="prevfpsw" type="password" autocomplete="off" />
             <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
                       <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
                   </div>
                   <div class="form-group has-feedback"><!-----new password -------------->
-                      <input class="form-control" placeholder="New Password" id="newfpsw" type="password" autocomplete="off" />
+                      <input class="form-control newfpsw" placeholder="New Password" id="newfpsw" type="password" autocomplete="off" />
             <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
                       <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
                   </div>
-                    <div class="form-group has-feedback"><!-----confirmnew password -------------->
-                      <input class="form-control" placeholder="Confirm Password" id="confnewfpsw" type="password" autocomplete="off" />
+                    <div class="form-group has-feedback "><!-----confirmnew password -------------->
+                      <input class="form-control confnewfpsw" placeholder="Confirm Password" id="confnewfpsw" type="password" autocomplete="off" />
             <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
                       <span class="glyphicon glyphicon-eye-close form-control-feedback"></span>
                   </div>
@@ -327,9 +327,11 @@ Price Table
                 </form>
               </div>
             </div>
+              <div class="modal-footer">
+          <div class="message pull-left" id="change-message"></div>
+        </div>
           </div>
         </div>
-
       </div>
     </div>
 <!--/chan pass-->
@@ -380,7 +382,26 @@ Price Table
             </div>
           </div>
             <br>
-            <div class="col-md-12 col-sm-12">
+            <div class="col-md-6 col-sm-6">
+            <div class="price-table">
+              <!-- Plan  -->
+              <div class="pricing-head">
+                <h4>Interest earned</h4>
+             <span class="fa fa-inr curency"></span><span class="amount" id="earningsamount">0</span> 
+              </div>
+          
+              <!-- Plean Detail -->
+              <div class="price-in mart-15">
+                <a href="#" class="btn btn-bg1 earnings-btn green btn-block">Earnings</a> 
+              </div>
+                <br>
+                <div class="price-in mart-15">
+                <a href="#" class="btn btn-bg earningsdat-btn yellow btn-block">Clients and Investors</a> 
+              </div>
+            </div>
+          </div>
+            
+            <div class="col-md-6 col-sm-6">
             <div class="price-table">
               <!-- Plan  -->
               <div class="pricing-head">
@@ -394,10 +415,13 @@ Price Table
               </div>
                 <br>
                 <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg yellow btn-block" data-target="#taxdetails" data-toggle="modal">Tax Details(earned from clients)</a> 
+                <a href="#" class="btn btn-bg taxdetails-btn yellow btn-block">Tax Details(earned from clients)</a> 
               </div>
             </div>
           </div>
+
+            
+            
          
         </div>
       </div>
@@ -537,7 +561,7 @@ Price Table
           <table class="table table-striped" id="tblGrid">
             <thead id="tblHead">
               <tr>
-                <th>DATE</th>  
+                <th>Date</th>  
                 <th class="text-right">Amount earned</th>  
                 <th class="text-right">Interest earned</th>
                 <th class="text-right">Total Tax</th>  

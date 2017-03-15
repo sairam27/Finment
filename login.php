@@ -12,7 +12,8 @@ if (!empty($_POST['lemail']) && !empty($_POST['lpassword']) && !empty($_POST['ca
     // receiving the post params
     $category=$_POST['category'];
     $email = $_POST['lemail'];
-    $fid=$db->getuserfid($email);
+    $fid=$_POST['fid'];
+    $fid1=$db->getuserfid($email);
     $password = $_POST['lpassword'];
 	// get the user by email and password
     $sql = "SELECT balance
@@ -20,13 +21,26 @@ if (!empty($_POST['lemail']) && !empty($_POST['lpassword']) && !empty($_POST['ca
             INNER JOIN 
             (SELECT access_id, MAX(created_at) as TopDate
             FROM finbalance
-            WHERE access_id = '$fid'
+            WHERE access_id = '$fid1'
             GROUP BY access_id) AS EachItem ON 
             EachItem.TopDate = finbalance.created_at 
             AND EachItem.access_id = finbalance.access_id";
     $conn = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
     $result =  mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
     $users1=mysqli_fetch_assoc($result);
+    
+    $sql2 = "SELECT totrequested,approval
+            FROM clientrequest
+            INNER JOIN 
+            (SELECT access_id, MAX(created_at) as TopDate
+            FROM clientrequest
+            WHERE access_id = '$fid'
+            GROUP BY access_id) AS EachItem ON 
+            EachItem.TopDate = clientrequest.created_at 
+            AND EachItem.access_id = clientrequest.access_id";
+    $conn2 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
+    $result2 = mysqli_query($conn2, $sql2) or die("Error in Selecting " . mysqli_error($conn));
+    $users2=mysqli_fetch_assoc($result2);
     
     if($category=="Financier"){
       if($db->isUserExisted($email)){
@@ -78,6 +92,8 @@ if (!empty($_POST['lemail']) && !empty($_POST['lpassword']) && !empty($_POST['ca
                                             $response["created_at"] = $user["created_at"];
                                             $response["updated_at"] = $user["updated_at"];
                                             $response["mobile"] = $user["mobile"];
+                                            $response["totrequested"] = $users2["totrequested"];
+                                            $response["approval"] = $users2["approval"];
                                             echo json_encode($response);
                                     }else{
                                             $response["success"] = FALSE;

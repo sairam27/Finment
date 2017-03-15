@@ -5,16 +5,10 @@ var cf=0,cl=0,cm=0,x=0,y=0;
 var flname=localStorage.getItem("fname");
 var llname= localStorage.getItem("lname");
 var mobile1 = localStorage.getItem("mobile");
-var approval = localStorage.getItem("approval");
-var totrequested = localStorage.getItem("totrequested");
 $('.navbar-nav .btn-trial1 a').text(flname+"."+llname);
 $("#chanfname").attr("value",flname);
 $("#chanlname").attr("value",llname);
 $("#chanmobile").attr("value",mobile1);
-if(parseInt(approval)=='1')
-$(".borrowed").text(totrequested);
-if(parseInt(approval)=='0')
-$(".borrowed").text("Pending");
 
 $(document).on('click','.logout-btn a',function(){
     localStorage.clear();
@@ -152,7 +146,7 @@ $(document).on('click','.editprof-btnsave',function(){
 	    var lname = $('.clname-validation').val();
         var mobile = $('.cmobile-validation').val();
         var fid= localStorage.getItem("fid");
-        var category = "Client";
+        var category = "Investor";
         $.post("http://localhost:80/Finment/financiereditprof.php",{
         fname:fname,
 		lname:lname,
@@ -327,7 +321,7 @@ $(document).on('click','.chanpass-btn',function(){
     var newfpsw = $('.newfpsw').val();
     var confpsw = $('.confnewfpsw').val();
     var email= localStorage.getItem("email");
-    var category = "Client";
+    var category = "Investor";
       $.post("http://localhost:80/Finment/chanpass.php",{
         prevfpsw:prevfpsw,
         newfpsw:newfpsw,
@@ -348,14 +342,14 @@ $(document).on('click','.chanpass-btn',function(){
     }
 });
 
-$(document).on('click','.addloan-btn',function(event){
+$(document).on('click','.newinvest-btn',function(event){
     var fund = $('.fund').val();
     var fid = localStorage.getItem("fid");
     var email = localStorage.getItem("email");
     $(this).find($(".register15")).removeClass('has-error').addClass('has-success');
     $(this).find($(".register15")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
     if($.isNumeric(fund)){
-    $.post("http://localhost:80/Finment/clientfuc.php",{
+    $.post("http://localhost:80/Finment/financierfuc.php",{
         fund:fund,
         fid:fid,
         email:email
@@ -364,7 +358,10 @@ $(document).on('click','.addloan-btn',function(event){
         if(result.success){
            $(".register15").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
             $(".register15").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
-            var message1="fund requested successfully"
+            localStorage.setItem("balance",parseInt(balance1)+parseInt(fund));
+            var balance2 =localStorage.getItem("balance");
+            $("#balanceamount").text(balance2);
+            var message1="fund inserted successfully"
            $('#signup-message5').html(message1);
         }else{
            $(".register15").removeClass('has-success').addClass('has-error');
@@ -376,24 +373,4 @@ $(document).on('click','.addloan-btn',function(event){
         var message2="Validation not approved"
         $('#signup-message5').html(message2);
     }
-});
-
-$(document).on('click','.borroweddetails',function(event){
-   $("#borroweddetails").modal();
-    var fid= localStorage.getItem("fid");
-    var email = localStorage.getItem("email");
-    var content = '';
-    $.post("http://localhost:80/Finment/borroweddetails.php",{fid:fid,email:email},function(data){
-        var json = jQuery.parseJSON(data);   
-            for(var i=0;i<5;i++){
-            content += '<tr>';
-            content += '<td>' + json[i].created_at + '</td>';
-            content += '<td class="text-right">' + json[i].amountrequested + '</td>';
-            content += '<td class="text-right">' + json[i].interestrate + '</td>';
-            content += '<td class="text-right">' + json[i].totrequested + '</td>';
-            content += '<td class="text-right">' + json[i].approval + '</td>';
-            content += '</tr>';
-            }
-        $("#tblbody3").html(content);
-    }); 
 });
