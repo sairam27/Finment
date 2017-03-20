@@ -12,28 +12,28 @@ if (isset($_POST['fid']) && isset($_POST["profit"]) && isset($_POST["email"])) {
         $profit=$_POST['profit'];
         $email=$_POST['email'];
         if($profit<=250000){
-        $sql1 = "insert into fintax(access_id,email,created_at,interestearned) VALUES('$fid','$email',NOW(),'$profit')";
+        $sql1 = "insert into investtax(access_id,email,created_at,interestearned) VALUES('$fid','$email',NOW(),'$profit')";
 		$conn1 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn1));
 		$result1 =  mysqli_query($conn1, $sql1) or die("Error in Selecting " . mysqli_error($conn1));
         }else if($profit>250000 && $profit<=500000){
             $taxupt=($profit/10);
-        $sql1 = "insert into fintax(access_id,email,created_at,interestearned,taxutp) VALUES('$fid','$email',NOW(),'$profit','$taxupt')";
+        $sql1 = "insert into investtax(access_id,email,created_at,interestearned,taxutp) VALUES('$fid','$email',NOW(),'$profit','$taxupt')";
 		$conn1 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn1));
 		$result1 =  mysqli_query($conn1, $sql1) or die("Error in Selecting " . mysqli_error($conn1));   
         }else if($profit>500000 && $profit<=1000000){
             $taxupt=($profit/5);
-        $sql1 = "insert into fintax(access_id,email,created_at,interestearned,taxutp) VALUES('$fid','$email',NOW(),'$profit','$taxupt')";
+        $sql1 = "insert into investtax(access_id,email,created_at,interestearned,taxutp) VALUES('$fid','$email',NOW(),'$profit','$taxupt')";
 		$conn1 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		$result1 =  mysqli_query($conn1, $sql1) or die("Error in Selecting " . mysqli_error($conn1));  
         }else{
             $taxupt=((3/10)*$profit);
-        $sql1 = "insert into fintax(access_id,email,created_at,interestearned,taxutp) VALUES('$fid','$email',NOW(),'$profit','$taxupt')";
+        $sql1 = "insert into investtax(access_id,email,created_at,interestearned,taxutp) VALUES('$fid','$email',NOW(),'$profit','$taxupt')";
 		$conn1 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		$result1 =  mysqli_query($conn1, $sql1) or die("Error in Selecting " . mysqli_error($conn1)); 
             
         }
          if($result1){
-		$sql = "SELECT access_id,email,created_at,interestearned,taxutp FROM fintax WHERE access_id='$fid' and email='$email'";
+		$sql = "SELECT access_id,email,created_at,interestearned,taxutp FROM investtax WHERE access_id='$fid' and email='$email'";
 		$conn = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		$result =  mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
 		$rows=array();
@@ -44,7 +44,7 @@ if (isset($_POST['fid']) && isset($_POST["profit"]) && isset($_POST["email"])) {
 			$rows["success"] = TRUE;
             $rows["message"] = "Succcess Retrival";
 			echo json_encode($rows);
-		          $sql2 = "delete from fintax where access_id='$fid' AND email='$email'";
+		          $sql2 = "delete from investtax where access_id='$fid' AND email='$email'";
 		          $conn2 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn2));
 		          $result2 =  mysqli_query($conn2, $sql2) or die("Error in Selecting " . mysqli_error($conn2));
 		          $rows=array();

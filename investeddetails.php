@@ -6,10 +6,12 @@ $db = new DB_Functions();
 // json response array
 $response = array("error" => FALSE);
 
-if (isset($_POST['fid'])) {
+if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) ) {
 
-	   $fid = $_POST['fid'];
-		$sql = "SELECT created_at,amountadded,amountreturned,balance FROM finbalance WHERE access_id='$fid' ORDER by created_at DESC";
+        $fid = $_POST['fid'];
+        $email = $_POST['email'];
+        $category = $_POST['category'];
+		$sql = "SELECT created_at,amountinvest,interestrate,totamtinvest,iapproval FROM investorrequest WHERE access_id='$fid' and email='$email' and category='$category' ORDER by created_at DESC";
 		$conn = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		$result =  mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
 		$rows=array();

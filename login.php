@@ -92,6 +92,26 @@ if (!empty($_POST['lemail']) && !empty($_POST['lpassword']) && !empty($_POST['ca
     $conn5 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
     $result5 = mysqli_query($conn5, $sql5) or die("Error in Selecting " . mysqli_error($conn));
     $users5=mysqli_fetch_assoc($result5);
+
+    $totalclientloan=0;
+    $sql6 = "select totloan from clientapproved where access_id='$fid1'";
+    $conn6 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
+    $result6 = mysqli_query($conn6, $sql6) or die("Error in Selecting " . mysqli_error($conn));
+    if($result6!= NULL){
+			while($users6=mysqli_fetch_assoc($result6)){
+			$totalclientloan +=$users6["totloan"];
+            }
+		}
+    $totalinvestorinvest=0;
+    $sql7 = "select totalinvest from investorapproved where access_id='$fid1'";
+    $conn7 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
+    $result7 = mysqli_query($conn7, $sql7) or die("Error in Selecting " . mysqli_error($conn));
+    if($result7!= NULL){
+			while($users7=mysqli_fetch_assoc($result7)){
+			$totalinvestorinvest += $users7["totalinvest"];
+            }
+		}
+    
     
     
     if($category=="Financier"){
@@ -112,6 +132,8 @@ if (!empty($_POST['lemail']) && !empty($_POST['lpassword']) && !empty($_POST['ca
                   $response["clients"] = $user["clients"];
                   $response["investors"] =$user["Investors"];
                   $response["balance"] =$users1["balance"];
+                  $response["clientloan"]= $totalclientloan;
+                  $response["investorinvest"]=$totalinvestorinvest;
                   echo json_encode($response);
               }else{
                   // user is not found with the credentials

@@ -66,7 +66,6 @@
     font-size: 30px;
 }
 
-
 @media(min-width: 992px){
     nav.navbar{
         top:0px;
@@ -163,7 +162,18 @@ Price Table
     line-height: 27px; /* <- changed this */
     border-radius: 25px;
 }
-
+    .sairam{
+        width: 800px;
+        height: 800px;
+    }   
+    
+    .earnings-btn{
+        background-color: darkturquoise;
+    }
+    .taximg{
+        width: 570px;
+        height:inherit;
+    }
     
 
 </style>
@@ -179,7 +189,7 @@ Price Table
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><img src="img/Logo.PNG" height="60" width="140"> </a>
+        <a class="navbar-brand" href="#"><img src="img/Logo.PNG" height="60" width="140"> </a>
              <ul>
         <li class="navbar-brand mobile"><a href="#">
               <img src="img/default.gif" alt="profile photo" class="profile-photo img-structure img-rounded"/>
@@ -192,8 +202,8 @@ Price Table
         </ul>
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a href="#"data-target="#investorrequest" data-toggle="modal"> Investors</a></li>
-          <li><a href="#"data-target="#clientrequest" data-toggle="modal"> Clients  </a></li>
+          <li><a href="#" class="investorrequest-btn"> Investors</a></li>
+          <li><a href="#" class="clientrequest-btn"> Clients  </a></li>
              <li><a href="#"data-target="#addfunds" data-toggle="modal"> Add funds  </a></li>
             <li class="dropdown">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile Settings <b class="caret"></b></a>
@@ -345,6 +355,23 @@ Price Table
             <p>The finance controller prepares an ongoing analysis of the finances's financial results, particularly in relation to a number of operational metrics that are not seen by outside entities (such as Interest rate, amount distribution channel, profit from clients, and so forth).</p>
             <hr class="bottom-line">
           </div>
+            <div class="col-md-12 col-sm-12">
+            <div class="price-table">
+              <!-- Plan  -->
+              <div class="pricing-head">
+                <h4>Interest earned</h4>
+             <span class="fa fa-inr curency"></span><span class="amount earningsamount">0</span><span>Rupees/month</span> 
+              </div>
+                <div class="price-in mart-15">
+                  
+                <a class="btn earnings-btn btn-bg1 green btn-block"></a> 
+                    <div>
+                    
+                    </div>
+              </div>
+            </div>
+          </div>
+
           <div class="col-md-6 col-sm-6">
             <div class="price-table">
               <!-- Plan  -->
@@ -382,31 +409,14 @@ Price Table
             </div>
           </div>
             <br>
-            <div class="col-md-6 col-sm-6">
-            <div class="price-table">
-              <!-- Plan  -->
-              <div class="pricing-head">
-                <h4>Interest earned</h4>
-             <span class="fa fa-inr curency"></span><span class="amount" id="earningsamount">0</span> 
-              </div>
-          
-              <!-- Plean Detail -->
-              <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg1 earnings-btn green btn-block">Earnings</a> 
-              </div>
-                <br>
-                <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg earningsdat-btn yellow btn-block">Clients and Investors</a> 
-              </div>
-            </div>
-          </div>
             
-            <div class="col-md-6 col-sm-6">
+            
+            <div class="col-md-12 col-sm-12">
             <div class="price-table">
               <!-- Plan  -->
               <div class="pricing-head">
                 <h4>Amount available</h4>
-             <span class="fa fa-inr curency"></span><span class="amount" id="balanceamount">0</span> 
+             <span class="fa fa-inr curency"></span><span class="amount balanceamount">0</span><span>Rupees</span> 
               </div>
           
               <!-- Plean Detail -->
@@ -555,6 +565,9 @@ Price Table
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <div>
+          <img src="img/Capture2.PNG" class="taximg"/>
+          </div>
           <h3 class="modal-title">Tax details</h3>
         </div>
         <div class="modal-body">
@@ -562,19 +575,20 @@ Price Table
             <thead id="tblHead">
               <tr>
                 <th>Date</th>  
-                <th class="text-right">Amount earned</th>  
-                <th class="text-right">Interest earned</th>
-                <th class="text-right">Total Tax</th>  
+                <th>email</th>
+                <th>interestearned</th>
+                <th>Tax amount </th>  
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tblbody15">
               
               
             </tbody>
           </table>
 		</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button> 
+          <div class="message pull-left" id="tax-message"></div>
         </div>
 				
       </div><!-- /.modal-content -->
@@ -750,8 +764,8 @@ Price Table
     
 <!--Clent Requests-->
 <div class="modal fade" id="clientrequest" >
-      <div class="modal-dialog modal-sm">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-sm ">
+      <div class="modal-dialog sairam">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -759,28 +773,30 @@ Price Table
         </div>
         <div class="modal-body">
 		  <h5 class="text-center">Approve Client Requests.</h5>
-          <table class="table table-striped" id="tblGrid">
+          <table class="table table-striped" id="tblGrid1">
             <thead id="tblHead">
               <tr>
-                <th><input type="checkbox" /></th>  
                 <th>Clients</th>
-                <th>Amount</th>
-                <th class="text-right">DOA</th>  
+                <th>Amount request</th>
+                <th>Interestrate</th>  
+                <th>Amount payback</th> 
+                <th>Approval</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id=tblbody4>
               
               
             </tbody>
           </table>
           <div class="form-group">
-            <input type="button" class="btn btn-warning btn-sm pull-right" value="Reset">
+            <input type="button" class="btn btn-warning btn-approve btn-sm pull-right" value="Approve">
             <div class="clearfix"></div>
           </div>
 		</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save Changes</button>
+
+          <div class="message pull-left" id="signup-message8"></div>
         </div>
 				
       </div><!-- /.modal-content -->
@@ -793,7 +809,7 @@ Price Table
 <!--Investor requests-->
 <div class="modal fade" id="investorrequest" >
       <div class="modal-dialog modal-sm">
-      <div class="modal-dialog">
+      <div class="modal-dialog sairam">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -801,28 +817,29 @@ Price Table
         </div>
         <div class="modal-body">
 		  <h5 class="text-center">Approve Investor Requests.</h5>
-          <table class="table table-striped" id="tblGrid">
+          <table class="table table-striped" id="tblGrid2">
             <thead id="tblHead">
-              <tr>
-                <th><input type="checkbox" /></th>  
-                <th>Clients</th>
-                <th>Amount</th>
-                <th class="text-right">DOA</th>  
+              <tr> 
+                <th>Investor</th>
+                <th>Amount invest</th>
+                <th>Interestrate</th> 
+                <th>Amount back</th>  
+                <th>Approval</th>  
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tblbody5">
               
               
             </tbody>
           </table>
           <div class="form-group">
-            <input type="button" class="btn btn-warning btn-sm pull-right" value="Reset">
+            <input type="button" class="btn iapproval-btn btn-warning btn-sm pull-right" value="Approve">
             <div class="clearfix"></div>
           </div>
 		</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save Changes</button>
+            <div class="message pull-left" id="signup-message12"></div>
         </div>
 				
       </div><!-- /.modal-content -->

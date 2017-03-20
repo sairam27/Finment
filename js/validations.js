@@ -643,6 +643,8 @@ if(le==1 && lp==1){
             localStorage.setItem("clients",result.clients);
             localStorage.setItem("investors",result.investors);
             localStorage.setItem("balance",result.balance);
+            localStorage.setItem("clientloan",result.clientloan);
+            localStorage.setItem("investorinvest",result.investorinvest);
             location.assign('http://localhost:80/Finment/Financier.php');
         }else{
             $(".sign11").removeClass('has-success').addClass('has-error');

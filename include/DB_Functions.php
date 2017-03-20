@@ -657,11 +657,11 @@ class DB_Functions {
             INNER JOIN 
             (SELECT access_id, MAX(created_at) as TopDate
             FROM clientrequest
-            WHERE access_id = ? AND category = ?
+            WHERE email = ? AND category = ?
             GROUP BY access_id) AS EachItem ON 
             EachItem.TopDate = clientrequest.created_at 
             AND EachItem.access_id = clientrequest.access_id");
-    $stmt->bind_param("ss", $fid, $category);
+    $stmt->bind_param("ss", $email, $category);
     $stmt->execute();
     $prevfund = $stmt->get_result()->fetch_assoc();   
     $newfund = $prevfund["totrequested"]+ $fund;
@@ -695,11 +695,11 @@ class DB_Functions {
             INNER JOIN 
             (SELECT access_id, MAX(created_at) as TopDate
             FROM clientrequest
-            WHERE access_id = ? AND category = ?
+            WHERE email = ? AND category = ?
             GROUP BY access_id) AS EachItem ON 
             EachItem.TopDate = clientrequest.created_at 
             AND EachItem.access_id = clientrequest.access_id");
-    $stmt->bind_param("ss", $fid, $category);
+    $stmt->bind_param("ss", $email, $category);
     $stmt->execute();
     $prevfund = $stmt->get_result()->fetch_assoc();   
     $newfund = $prevfund["totrepay"]+ $fund;
@@ -733,11 +733,11 @@ class DB_Functions {
             INNER JOIN 
             (SELECT access_id, MAX(created_at) as TopDate
             FROM investorrequest
-            WHERE access_id = ? AND category = ?
+            WHERE email = ? AND category = ?
             GROUP BY access_id) AS EachItem ON 
             EachItem.TopDate = investorrequest.created_at 
             AND EachItem.access_id = investorrequest.access_id");
-    $stmt->bind_param("ss", $fid, $category);
+    $stmt->bind_param("ss", $email, $category);
     $stmt->execute();
     $prevfund = $stmt->get_result()->fetch_assoc();   
     $newfund = $prevfund["totamtinvest"]+ $fund;
@@ -771,14 +771,14 @@ class DB_Functions {
             INNER JOIN 
             (SELECT access_id, MAX(created_at) as TopDate
             FROM investorrequest
-            WHERE access_id = ? AND category = ?
+            WHERE email = ? AND category = ?
             GROUP BY access_id) AS EachItem ON 
             EachItem.TopDate = investorrequest.created_at 
             AND EachItem.access_id = investorrequest.access_id");
-    $stmt->bind_param("ss", $fid, $category);
+    $stmt->bind_param("ss", $email, $category);
     $stmt->execute();
     $prevfund = $stmt->get_result()->fetch_assoc();   
-    $newfund = $prevfund["totrepay"]+ $fund;
+    $newfund = $prevfund["totamtback"]+$fund;
     $stmt = $this->conn->prepare("INSERT INTO investorrequest(access_id,email,created_at,amountback,totamtback,baapproval,interestrate,category) VALUES(?,?,NOW(),?,?,'0','0',?)");
     $stmt->bind_param("sssss", $fid,$email,$fund,$newfund,$category);
     $result=$stmt->execute();

@@ -5,15 +5,34 @@ var f1=0,l1=0,e1=0,p1=0,m1=0,a1=0,pa1=0;
 var cf=0,cl=0,cm=0;
 var x=0,y=0;
 var flname= localStorage.getItem("fname");
+if(flname==null){
+    location.assign("index.php");
+    alert("Dude You think u can access pages without login hahah...!")
+}
 var llname= localStorage.getItem("lname");
 var clients1 = localStorage.getItem("clients");
 var investors1 = localStorage.getItem("investors");
 var balance1 =localStorage.getItem("balance");
 var mobile1 = localStorage.getItem("mobile");
+
+
 $('.navbar-nav .btn-trial1 a').text(flname+"."+llname);
 $("#noofclients").text(clients1);
 $("#noofinvestors").text(investors1);
-$("#balanceamount").text(balance1); 
+if(balance1==null){
+   $(".balanceamount").text('0');  
+}
+$(".balanceamount").text(balance1);
+
+ var clientloan=localStorage.getItem("clientloan");
+var investorinvest=localStorage.getItem("investorinvest");
+
+var profit=( parseInt((2.50*parseInt(clientloan))/100)  -  parseInt((1.50*parseInt(investorinvest))/100) );
+$(".earningsamount").text(profit);
+if(profit<=0)
+$(".earnings-btn").text("Yes your profit is negative because you have investors but less clients");
+else
+$(".earnings-btn").text("Your are good to go hope to find you as a investor...!");    
 $("#chanfname").attr("value",flname)
 $("#chanlname").attr("value",llname);
 $("#chanmobile").attr("value",mobile1);
@@ -477,7 +496,7 @@ $(document).on('click','.signupclient-btn',function(){
 
 $(document).on('click','.logout-btn a',function(){
     localStorage.clear();
-    location.assign("index.html");
+    location.assign("index.php");
 });
 
 $(document).on('blur','.fname-validation1',function(){
@@ -1010,7 +1029,7 @@ $(document).on('click','.addfund',function(event){
             $(".register15").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
             localStorage.setItem("balance",parseInt(balance1)+parseInt(fund));
             var balance2 =localStorage.getItem("balance");
-            $("#balanceamount").text(balance2);
+            $(".balanceamount").text(balance2);
             var message1="fund inserted successfully"
            $('#signup-message5').html(message1);
         }else{
@@ -1246,19 +1265,22 @@ $(document).on('click','.balancedetails-btn',function(){
 
 $(document).on('click','.taxdetails-btn',function(){
     $("#taxdetails").modal();
-    var fid= localStorage.getItem("fid");  
+    var fid= localStorage.getItem("fid");
+    var email= localStorage.getItem("email");
+    var profit=( parseInt((2.50*parseInt(clientloan))/100)  -  parseInt((1.50*parseInt(investorinvest))/100) );
     var content = '';
-    $.post("http://localhost:80/Finment/fintaxdetails.php",{fid:fid},function(data){
+    $.post("http://localhost:80/Finment/fintaxdetails.php",{fid:fid,profit:profit,email:email},function(data){
         var json = jQuery.parseJSON(data);
-            for(var i=0;i<5;i++){
+        var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
             content += '<tr>';
             content += '<td>' + json[i].created_at + '</td>';
-            content += '<td class="text-right">' + json[i].amountadded + '</td>';
-            content += '<td class="text-right">' + json[i].amountreturned + '</td>';
-            content += '<td class="text-right">' + json[i].balance + '</td>';
+            content += '<td>' + json[i].email + '</td>';
+            content += '<td>' + json[i].interestearned +'<span>&nbsp Rs/-</span></td>';
+            content += '<td>' + json[i].taxutp + '</td>';    
             content += '</tr>';
             }
-        $("#tblbody3").html(content);
+        $("#tblbody15").html(content);
     });
 });
 
@@ -1425,4 +1447,177 @@ $(document).on('click','.chanpass-btn',function(){
         var message2="Validation not approved"
         $('#change-message').html(message2);
     }
+});
+
+$(document).on('click','.clientrequest-btn',function(){
+   $("#clientrequest").modal();
+    var fid= localStorage.getItem("fid");  
+    var content = '';
+    $.post("http://localhost:80/Finment/clientrequest.php",{fid:fid},function(data){
+        var json = jQuery.parseJSON(data);
+         var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
+            content += '<tr>';
+            content += '<td class="clientemail">' + json[i].email + '</td>';
+            content += '<td class="amountrequested">' + json[i].amountrequested+ '</td>';
+            content += '<td class="interestrate">' + json[i].interestrate + '</td>';
+            content += '<td class="amountrepay">' + json[i].amountrepay + '</td>'; 
+            content += '<td><input type="checkbox"/></td>' ; 
+            content += '</tr>';
+            }
+        $("#tblbody4").html(content);
+    });
+});
+
+$(document).on('click','.btn-approve',function(){
+        var fid= localStorage.getItem("fid"); 
+        $('#tblGrid1 tbody').find('tr').each(function () {
+        var row = $(this);
+        if (row.find('input[type="checkbox"]').is(':checked')) {
+            var clientemail = row.find(".clientemail").text();
+            var amountrequested = row.find(".amountrequested").text();
+            var interestrate = row.find(".interestrate").text();
+            var amountrepay = row.find(".amountrepay").text();
+            if(amountrepay=="null"){
+            var category="loan";
+             $.post("http://localhost:80/Finment/clientrequestacc.php",
+                    {
+                    fid:fid,
+                    email:clientemail,
+                    amountrequested:amountrequested,
+                    category:category
+                    },function(data)
+                    {
+                        var result = JSON.parse(data);
+                        if(result.success)
+                        {
+                            var message1="loan approved successfully"
+                            row.remove();
+                            var balan = localStorage.getItem("balance");
+                            localStorage.setItem("balance",(parseInt(balan)-parseInt(amountrequested)));
+                            var balance2=localStorage.getItem("balance");
+                            $(".balanceamount").text(balance2); 
+                            $('#signup-message8').html(message1);
+                        }else
+                        {
+                            $('#signup-message8').html(result.message);
+                        }
+                    });   
+            }else if(amountrequested=="null"){
+             var category="repay";
+             $.post("http://localhost:80/Finment/clientrequestacc.php",
+                    {
+                    fid:fid,
+                    email:clientemail,
+                    amountrepay:amountrepay,
+                    category:category
+                    },function(data)
+                    {
+                        var result = JSON.parse(data);
+                        if(result.success)
+                        {
+                            var message1="repay approved successfully"
+                            row.remove();
+                            var balan = localStorage.getItem("balance");
+                            localStorage.setItem("balance",(parseInt(balan)+parseInt(amountrepay)));
+                            var balance3=localStorage.getItem("balance");
+                            $(".balanceamount").text(balance3); 
+                            $('#signup-message8').html(message1);
+                        }else
+                        {
+                            $('#signup-message8').html(result.message);
+                        }
+                    });
+            }else{
+                
+            }
+        }
+    });
+});
+
+$(document).on('click','.investorrequest-btn',function(){
+   $("#investorrequest").modal();
+    var fid= localStorage.getItem("fid");  
+    var content = '';
+    $.post("http://localhost:80/Finment/investorrequest.php",{fid:fid},function(data){
+        var json = jQuery.parseJSON(data);
+         var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
+            content += '<tr>';
+            content += '<td class="investoremail">' + json[i].email + '</td>';
+            content += '<td class="amountinvest">' + json[i].amountinvest+ '</td>';
+            content += '<td class="interestrate">' + json[i].interestrate + '</td>';
+            content += '<td class="amountback">' + json[i].amountback + '</td>'; 
+            content += '<td><input type="checkbox"/></td>' ; 
+            content += '</tr>';
+            }
+        $("#tblbody5").html(content);
+    });
+});
+
+$(document).on('click','.iapproval-btn',function(){
+        var fid= localStorage.getItem("fid"); 
+        $('#tblGrid2 tbody').find('tr').each(function () {
+        var row = $(this);
+        if (row.find('input[type="checkbox"]').is(':checked')) {
+            var investoremail = row.find(".investoremail").text();
+            var amountinvest = row.find(".amountinvest").text();
+            var interestrate = row.find(".interestrate").text();
+            var amountback = row.find(".amountback").text();
+            
+            if(amountback=="null"){
+            var category="invest";
+             $.post("http://localhost:80/Finment/investorrequestacc.php",
+                    {
+                    fid:fid,
+                    email:investoremail,
+                    amountinvest:amountinvest,
+                    category:category
+                    },function(data)
+                    {
+                        var result = JSON.parse(data);
+                        if(result.success)
+                        {
+                            var message1="investment approved successfully"
+                            row.remove();
+                            var locbal = localStorage.getItem("balance");
+                            localStorage.setItem("balance",(parseInt(locbal)+parseInt(amountinvest)));
+                            var balance2=localStorage.getItem("balance");
+                            $(".balanceamount").text(balance2); 
+                            $('#signup-message12').html(message1);
+                        }else
+                        {
+                            $('#signup-message12').html(result.message);
+                        }
+                    });   
+            }else if(amountinvest=="null"){
+             var category="backamt";
+             $.post("http://localhost:80/Finment/investorrequestacc.php",
+                    {
+                    fid:fid,
+                    email:investoremail,
+                   amountback:amountback,
+                    category:category
+                    },function(data)
+                    {
+                        var result = JSON.parse(data);
+                        if(result.success)
+                        {
+                            var message1="repay approved successfully"
+                            row.remove();
+                            var locbal2=localStorage.getItem("balance");
+                            localStorage.setItem("balance",(parseInt(locbal2)-parseInt(amountback)));
+                            var balance3=localStorage.getItem("balance");
+                            $(".balanceamount").text(balance3); 
+                            $('#signup-message12').html(message1);
+                        }else
+                        {
+                            $('#signup-message12').html(result.message);
+                        }
+                    });
+            }else{
+                
+            }
+        }
+    });
 });

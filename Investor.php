@@ -81,9 +81,9 @@
     background-color: #5fcf80;
     color: #fff;
 }
-          .modal-dialog {
-    width: 600px;
-    margin: 150px auto;
+        .modal-dialog {
+    
+    margin: 150px 150px 150px 150px;
 }
 .modal-sm {
     width: 300px;
@@ -92,6 +92,14 @@
     font-size: 0.5em;
     font-weight: 700;
 }
+        .sairam{
+        width: 700px;
+        height: 800px;
+          }
+          .taximg{
+              width: 570px;
+              height:inherit;
+          }
 
 </style>
   </head>
@@ -107,7 +115,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><img src="img/Logo.PNG" height="60" width="140"> </a>
+        <a class="navbar-brand" href="#"><img src="img/Logo.PNG" height="60" width="140"> </a>
             <ul>
         <li class="navbar-brand mobile"><a href="#">
               <img src="img/default.gif" alt="profile photo" class="profile-photo img-structure img-rounded"/>
@@ -176,17 +184,17 @@
             <p>An investor is any person who commits capital with the expectation of financial returns. Investors utilize investments in order to grow their money and/or provide an income during retirement, such as with an annuity.</p>
             <hr class="bottom-line">
           </div>
-          <div class="col-md-6 col-sm-6">
+          <div class="col-md-12 col-sm-12">
             <div class="price-table">
               <!-- Plan  -->
               <div class="pricing-head">
-                <h2>Investments</h2>
-               <span class="fa fa-inr curency"></span> <span class="amount invested">0</span> 
+                <h2>Investment Amount</h2>
+               <span class="fa fa-inr curency"></span> <span class="amount invested">0</span><span>Rupees</span> 
               </div>
                 <div class="row">
                 <div class="col-xs-12">
                 <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
+                <a href="#" class="btn btn-bg1 investeddetails-btn green btn-block">Details</a> 
               </div>
           
               <!-- Plean Detail -->
@@ -202,45 +210,36 @@
               <!-- Plan  -->
               <div class="pricing-head">
                 <h2>Interest Earned</h2>
-             <span class="fa fa-inr curency"></span><span class="amount">0</span> 
+             <span class="fa fa-inr curency"></span><span class="amount interestamount12">0</span><span>Rupees/Month</span> 
               </div>
                  <div class="row">
                 <div class="col-xs-12">
                 <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
-              </div>
-          
-              <!-- Plean Detail -->
-              <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg green btn-block">Summary</a> 
+                <a href="#" class="btn btn-bg1 interestdetails-btn green btn-block">Details</a> 
               </div>
             </div>
             </div>
             </div>
           </div>
-            
-            
-            
             <div class="col-md-6 col-sm-6">
             <div class="price-table">
               <!-- Plan  -->
               <div class="pricing-head">
-                <h2>Balance Amount</h2>
-             <span class="fa fa-inr curency"></span><span class="amount">0</span> 
+                <h2>Withdrawn Amount</h2>
+             <span class="fa fa-inr curency"></span><span class="amount amountwith">0</span> 
               </div>
           
               <!-- Plean Detail -->
                <div class="row">
                 <div class="col-xs-12">
                 <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
+                <a href="#" class="btn btn-bg1 withdrawdetails-btn green btn-block">Details</a> 
               </div>
             </div>
             </div>
             </div>
           </div>
-            
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-12 col-sm-12">
             <div class="price-table">
               <!-- Plan  -->
               <div class="pricing-head">
@@ -250,7 +249,7 @@
                 <div class="row">
                 <div class="col-xs-12">
                 <div class="price-in mart-15">
-                <a href="#" class="btn btn-bg1 green btn-block">Details</a> 
+                <a href="#" class="btn btn-bg1 taxdetails-btn green btn-block">Details</a> 
               </div>
             </div>
             </div>
@@ -260,6 +259,156 @@
       </div>
     </section>
 <!--/ Pricing--> 
+        
+<!--Invested details-->
+<div class="modal fade" id="investeddetails" >
+      <div class="modal-dialog modal-sm">
+      <div class="modal-dialog sairam" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title">Requested funds</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped" id="tblGrid">
+            <thead id="tblHead">
+              <tr> 
+                <th>DATE</th>  
+                <th class="text-right">Amount_invested</th>
+                <th class="text-right">Interestrate</th>
+                <th class="text-right">Total</th>
+                <th>approval</th>  
+              </tr>
+            </thead>
+            <tbody id="tblbody3">
+              
+              
+            </tbody>
+          </table>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+        </div>
+				
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+        
+      </div>
+    </div>
+<!--/invested details-->
+        
+<!--Tax details-->
+<div class="modal fade" id="taxdetails" >
+      <div class="modal-dialog modal-sm">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <div>
+          <img src="img/Capture2.PNG" class="taximg"/>
+          </div>
+          <h3 class="modal-title">Tax details</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped" id="tblGrid">
+            <thead id="tblHead">
+              <tr>
+                <th>Date</th>  
+                <th>email</th>
+                <th>interestearned</th>
+                <th>Tax amount </th>  
+              </tr>
+            </thead>
+            <tbody id="tblbody15">
+              
+              
+            </tbody>
+          </table>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button> 
+          <div class="message pull-left" id="tax-message"></div>
+        </div>
+				
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+        
+      </div>
+    </div>
+<!--/Tax details-->           
+        
+<!--interest details-->
+<div class="modal fade" id="interestdetails" >
+      <div class="modal-dialog modal-sm">
+      <div class="modal-dialog sairam">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title">traansaction statement</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped" id="tblGrid">
+            <thead id="tblHead">
+              <tr> 
+                <th>DATE</th>  
+                <th>Amount_requested</th>
+                <th>interestrate</th>  
+                <th>amount payback</th>
+                <th>interest</th>  
+              </tr>
+            </thead>
+            <tbody id="tblbody8">
+              
+              
+            </tbody>
+          </table>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+        </div>
+				
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+        
+      </div>
+    </div>
+<!--/interest details-->        
+        
+<!--withdrawl details-->
+<div class="modal fade" id="withdrawmodal" >
+      <div class="modal-dialog modal-sm">
+      <div class="modal-dialog sairam" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title">Requested funds</h3>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped" id="tblGrid">
+            <thead id="tblHead">
+              <tr> 
+                <th>DATE</th>  
+                <th class="text-right">Amount_invested</th>
+                <th class="text-right">Total</th>
+                <th>approval</th>  
+              </tr>
+            </thead>
+            <tbody id="tblbody5">
+              
+              
+            </tbody>
+          </table>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+        </div>
+				
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+        
+      </div>
+    </div>
+<!--/withdrawl details-->         
 
 <!--chan pass-->
 <div class="modal fade" id="chanpass" role="dialog">
@@ -365,7 +514,7 @@
     </div>
 <!--/new investment-->
         
-<!--repay-->
+<!--withdraw-->
 <div class="modal fade" id="amtbackmodal" role="dialog">
       <div class="modal-dialog modal-sm">
       
@@ -408,7 +557,7 @@
 
       </div>
     </div>
-<!--/repay-->        
+<!--/withdraw-->        
         
 <!--editprofile-->
 <div class="modal fade" id="editprof" role="dialog">

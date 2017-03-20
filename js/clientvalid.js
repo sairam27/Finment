@@ -3,12 +3,18 @@ var f=0,l=0,e=0,p=0,m=0,a=0,pa=0;
 var f1=0,l1=0,e1=0,p1=0,m1=0,a1=0,pa1=0;
 var cf=0,cl=0,cm=0,x=0,y=0;
 var flname=localStorage.getItem("fname");
+if(flname==null ){
+    location.assign("index.php");
+    alert("Dude You think u can access pages without login hahah...!");
+}
+
 var llname= localStorage.getItem("lname");
 var mobile1 = localStorage.getItem("mobile");
 var bapproval = localStorage.getItem("bapproval");
 var totrequested = localStorage.getItem("totrequested");
 var rapproval = localStorage.getItem("rapproval");
 var totrepay = localStorage.getItem("totrepay");
+
 $('.navbar-nav .btn-trial1 a').text(flname+"."+llname);
 $("#chanfname").attr("value",flname);
 $("#chanlname").attr("value",llname);
@@ -18,14 +24,26 @@ $(".borrowed").text(totrequested);
 if(parseInt(bapproval)=='0')
 $(".borrowed").text("Pending");
 if(parseInt(rapproval)=='1')
-$(".repaid").text(totrequested);
+$(".repaid").text(totrepay);
 if(parseInt(rapproval)=='0')
 $(".repaid").text("Pending");
+if(parseInt(totrepay)==null){
+    totrepay='0';
+}
+if(parseInt(totrequested)==null){
+    totrequested='0';
+}
+var balance = (parseInt(totrequested)-parseInt(totrepay));
 
+if((parseInt(bapproval)==1) && (parseInt(rapproval)==1))
+$(".balanceamountpay").text(parseInt(balance));
+
+var interest=((balance*2.50)/100);
+$(".interestamount").text(interest);
 
 $(document).on('click','.logout-btn a',function(){
     localStorage.clear();
-    location.assign("index.html");
+    location.assign("index.php");
 });
 
 $(document).on('blur','.cfname-validation',function(){
@@ -374,6 +392,7 @@ $(document).on('click','.addloan-btn',function(event){
            $(".register15").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
             $(".register15").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
             var message1="fund requested successfully"
+            $(".borrowed").text("Pending");
            $('#signup-message5').html(message1);
         }else{
            $(".register15").removeClass('has-success').addClass('has-error');
@@ -428,6 +447,7 @@ $(document).on('click','.repay-btn',function(event){
            $(".register16").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
             $(".register16").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
             var message1="fund requested successfully"
+            $(".repaid").text("Pending");
            $('#signup-message6').html(message1);
         }else{
            $(".register16").removeClass('has-success').addClass('has-error');
@@ -439,4 +459,72 @@ $(document).on('click','.repay-btn',function(event){
         var message2="Validation not approved"
         $('#signup-message5').html(message2);
     }
+});
+
+$(document).on('click','.repaydetails',function(event){
+   $("#repayeddetails").modal();
+    var fid= localStorage.getItem("fid");
+    var email = localStorage.getItem("email");
+    var category = "repay";
+    var content = '';
+    $.post("http://localhost:80/Finment/repaydetails.php",{fid:fid,email:email,category:category},function(data){
+        var json = jQuery.parseJSON(data); 
+        var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
+            content += '<tr>';
+            content += '<td>' + json[i].created_at + '</td>';
+            content += '<td class="text-right">' + json[i].amountrepay + '</td>';
+            content += '<td class="text-right">' + json[i].totrepay + '</td>';
+            content += '<td class="text-right">' + json[i].rapproval + '</td>';
+            content += '</tr>';
+            }
+        $("#tblbody6").html(content);
+    }); 
+});
+
+$(document).on('click','.balancedeyails-btn',function(event){
+   $("#balancedetails").modal();
+    var fid= localStorage.getItem("fid");
+    var email = localStorage.getItem("email");
+    var content = '';
+    $.post("http://localhost:80/Finment/clientbal.php",{fid:fid,email:email},function(data){
+        var json = jQuery.parseJSON(data); 
+        var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
+            content += '<tr>';
+            content += '<td>' + json[i].created_at + '</td>';
+            content += '<td class="text-right">' + json[i].totrequested + '</td>';
+            content += '<td class="text-right">' + json[i].interestrate + '</td>';
+            content += '<td class="text-right">' + json[i].totrepay + '</td>';
+            content += '<td class="text-right">' + json[i].category + '</td>';
+            content += '</tr>';
+            }
+        $("#tblbody7").html(content);
+    }); 
+});
+
+$(document).on('click','.interestdetails-btn',function(event){
+   $("#interestdetails").modal();
+    var fid= localStorage.getItem("fid");
+    var email = localStorage.getItem("email");
+    
+    var content = '';
+    $.post("http://localhost:80/Finment/clientbal.php",{fid:fid,email:email},function(data){
+        var json = jQuery.parseJSON(data); 
+        var len = Object.keys(json).length;
+            for(var i=0;i<(len-2);i++){
+                if(json[i].totrequested==null){
+                   var interest = ((balance*2.50)/100);
+                }else
+                    var interest= ((json[i].totrequested*2.50)/100);
+            content += '<tr>';
+            content += '<td>' + json[i].created_at + '</td>';
+            content += '<td class="text-right">' + json[i].totrequested + '</td>';
+            content += '<td class="text-right">' + '2.5' + '</td>';
+            content += '<td class="text-right">' + json[i].totrepay + '</td>';
+            content += '<td class="text-right">' + interest + '</td>';
+            content += '</tr>';
+            }
+        $("#tblbody8").html(content);
+    }); 
 });

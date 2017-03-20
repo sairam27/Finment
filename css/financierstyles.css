@@ -43,15 +43,6 @@ a:hover, a:focus{
     color: #5fcf80;
 }
 
-#investorrequest{
-right:250px;   
-height:1000px;
-}
-
-#clientrequest{
-height:1000px;
-right:220px;    
-}
 /***********************************
 Navigation bar
 ************************************/
@@ -185,7 +176,7 @@ Banner
 }
 .modal-dialog {
     width: 600px;
-    margin: 150px auto;
+    margin: 150px 150px 150px 150px;
 }
 .mouse {
     width: 25px;
