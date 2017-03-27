@@ -10,6 +10,9 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
 	   $fid = $_POST['fid'];
        $email = $_POST['email'];
        $category = $_POST['category'];
+        $subject="Investor request confirmation";
+		$header= array("From: FINMENT ","Content-type: text/html");
+    
     if($category=="invest"){
         $amountinvest=$_POST['amountinvest'];
         $sql = "SELECT balance
@@ -56,6 +59,51 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
                         $conn4 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		                $result4 =  mysqli_query($conn4, $sql4) or die("Error in investorrequest " . mysqli_error($conn));
                         if($result4){
+                               $to=$email;
+                            $message1='
+		
+			<html>
+			<head>
+			<title>Title of email</title>
+			</head>
+
+			<body>
+
+			<div  style=" border:1px solid grey; padding:20px;">
+			        <div style="font-size: 35px; margin: 30px;color:#C0392B;">
+			        	<strong>Hello, Welcome !</strong> 
+			        </div>
+			        <p> Dear User,<br><br>
+			       		Your request is apporved
+			        </p><br>
+
+			        <div id="instructions">
+			                <div class="category">
+			                        <div class="category-heading" style="font-weight: 500; font-size: 16px;"> Investor REQUEST </div>
+			                        <ul class="category-instructions">
+                                       
+                                            <li>your requested amount '.$amountinvest.' is approved </li> 
+			                                <li> Just Login and start evaluating your Finance.</li>
+			                        </ul>
+			                </div>
+			                
+			        </div>
+			 		<br><br><br>
+	        		<div>
+		                 Thanks again, and if you ever have any questions or feedback, just send us an email :<br><br>
+		                 <span style="color:#C0392B;"> SAIRAM RAVI  :</span> ravi.sairam27@gmail.com <br>
+		                 <span style="color:#C0392B;"> VARUN J SHAH : </span> vjs281095@gmail.com <br>
+		                 <br>
+		                 We read &amp; respond to every request!
+	       			</div>
+
+			</div>
+
+			</body>
+			</html>	
+		';
+			                 $sentmail = mail($to,$subject,$message1,implode("\r\n",$header)) or die("Error sending mail.");
+                            
                             $response["success"] = TRUE;
                             $response["message"]= "Fund accepted Successfully";
                             echo json_encode($response); 
@@ -108,8 +156,8 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
 		              $conn2 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn2));
 		              $result2 =  mysqli_query($conn2, $sql2) or die("Error in Selecting totalinvest " . mysqli_error($conn2));
                         if($result2){
-                            $newfinbal=($users["balance"]-$amountback);
-                            $sql3 = "INSERT into finbalance(access_id,created_at,amountreturned,balance) VALUES('$fid',NOW(),'$amountback','$newfinbal')";
+                            $newfinbal1=($users["balance"]-$amountback);
+                            $sql3 = "INSERT into finbalance(access_id,created_at,amountreturned,balance) VALUES('$fid',NOW(),'$amountback','$newfinbal1')";
 		                    $conn3 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn3));
 		                   $result3 =  mysqli_query($conn3, $sql3) or die("Error in Selecting totalinvest " . mysqli_error($conn3));
                             if($result3){
@@ -117,6 +165,52 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
 		                      $conn4 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn4));
 		                      $result4 =  mysqli_query($conn4, $sql4) or die("Error in Selecting totalinvest " . mysqli_error($conn4));
                                 if($result4){
+                                    $to=$email;
+                             $message2='
+		
+			<html>
+			<head>
+			<title>Title of email</title>
+			</head>
+
+			<body>
+
+			<div  style=" border:1px solid grey; padding:20px;">
+			        <div style="font-size: 35px; margin: 30px;color:#C0392B;">
+			        	<strong>Hello, Welcome !</strong> 
+			        </div>
+			        <p> Dear User,<br><br>
+			       		Your request is apporved
+			        </p><br>
+
+			        <div id="instructions">
+			                <div class="category">
+			                        <div class="category-heading" style="font-weight: 500; font-size: 16px;"> Investor REQUEST </div>
+			                        <ul class="category-instructions">
+                                        <li> </li>
+                                            <li>your requested amount '.$amountback.' is approved </li> 
+			                                <li> Just Login and start evaluating your Finance.</li>
+			                        </ul>
+			                </div>
+			                
+			        </div>
+			 		<br><br><br>
+	        		<div>
+		                 Thanks again, and if you ever have any questions or feedback, just send us an email :<br><br>
+		                 <span style="color:#C0392B;"> SAIRAM RAVI  :</span> ravi.sairam27@gmail.com <br>
+		                 <span style="color:#C0392B;"> VARUN J SHAH : </span> vjs281095@gmail.com <br>
+		                 <br>
+		                 We read &amp; respond to every request!
+	       			</div>
+
+			</div>
+
+			</body>
+			</html>	
+		';
+    
+			                 $sentmail = mail($to,$subject,$message2,implode("\r\n",$header)) or die("Error sending mail.");
+                                    
                                         $response["success"] = TRUE;
                                         $response["message"]= "Fund return accepted";
                                         echo json_encode($response); 

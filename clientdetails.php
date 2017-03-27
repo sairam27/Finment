@@ -9,7 +9,7 @@ $response = array("error" => FALSE);
 if (isset($_POST['fid'])) {
 
 	   $fid = $_POST['fid'];
-		$sql = "SELECT fname,lname,email,mobile FROM clients WHERE access_id='$fid'";
+		$sql = "SELECT fname,lname,email,mobile FROM clients WHERE access_id='$fid' AND span='opened'";
 		$conn = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		$result =  mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
 		$rows=array();

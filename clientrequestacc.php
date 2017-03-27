@@ -10,6 +10,10 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
 	   $fid = $_POST['fid'];
        $email = $_POST['email'];
        $category = $_POST['category'];
+        
+        $subject="Client Request confirmation";
+		$header= array("From: FINMENT ","Content-type: text/html");
+		
     if($category=="loan"){
         $amountrequested=$_POST["amountrequested"];
         $sql = "SELECT balance
@@ -54,6 +58,50 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
                         $conn4 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		                $result4 =  mysqli_query($conn4, $sql4) or die("Error in clientrequest " . mysqli_error($conn));
                         if($result4){ /*** client request table updated */
+                            $to=$email;
+                            $message1='
+		
+			<html>
+			<head>
+			<title>Title of email</title>
+			</head>
+
+			<body>
+
+			<div  style=" border:1px solid grey; padding:20px;">
+			        <div style="font-size: 35px; margin: 30px;color:#C0392B;">
+			        	<strong>Hello, Welcome !</strong> 
+			        </div>
+			        <p> Dear User,<br><br>
+			       		Your request is apporved
+			        </p><br>
+
+			        <div id="instructions">
+			                <div class="category">
+			                        <div class="category-heading" style="font-weight: 500; font-size: 16px;"> CLIENT REQUEST </div>
+			                        <ul class="category-instructions">
+                                       
+                                            <li>your requested amount '.$amountrequested.' is approved </li> 
+			                                <li> Just Login and start evaluating your Finance.</li>
+			                        </ul>
+			                </div>
+			                
+			        </div>
+			 		<br><br><br>
+	        		<div>
+		                 Thanks again, and if you ever have any questions or feedback, just send us an email :<br><br>
+		                 <span style="color:#C0392B;"> SAIRAM RAVI  :</span> ravi.sairam27@gmail.com <br>
+		                 <span style="color:#C0392B;"> VARUN J SHAH : </span> vjs281095@gmail.com <br>
+		                 <br>
+		                 We read &amp; respond to every request!
+	       			</div>
+
+			</div>
+
+			</body>
+			</html>	
+		';
+			                 $sentmail = mail($to,$subject,$message1,implode("\r\n",$header)) or die("Error sending mail.");
                             $response["success"] = TRUE;
                             $response["message"]= "Fund approved Successfully";
                             echo json_encode($response); 
@@ -77,7 +125,8 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
             $response["message"] = "your balance is low to approve";
             echo json_encode($response); 
         }
-    }else if($category=="repay"){
+    }
+    else if($category=="repay"){
         $amountrepay=$_POST["amountrepay"];
         $sql = "SELECT balance
             FROM finbalance
@@ -109,11 +158,11 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
 		      $result2 =  mysqli_query($conn2, $sql2) or die("Error in Selecting clientapproved " . mysqli_error($conn));
               if($result2){ /*** checking clientapproved table updated */
                  if($users["balance"]==null){
-                     $newfinbal=$amountrepay;
+                     $newfinbal1=$amountrepay;
                  }else{
-                    $newfinbal=($users["balance"]+$amountrepay);
+                    $newfinbal1=($users["balance"]+$amountrepay);
                  }
-                    $sql3 = "Insert into finbalance(access_id,created_at,amountadded,balance) VALUES('$fid',NOW(),'$amountrepay','$newfinbal')";
+                    $sql3 = "Insert into finbalance(access_id,created_at,amountadded,balance) VALUES('$fid',NOW(),'$amountrepay','$newfinbal1')";
 		            $conn3 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		            $result3 =  mysqli_query($conn3, $sql3) or die("Error in Selecting finbal " . mysqli_error($conn));
                   if($result3){ /*** Financier balance update checking */
@@ -121,6 +170,51 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
 		              $conn4 = mysqli_connect("localhost","root","","finment") or die("Error " . mysqli_error($conn));
 		              $result4 =  mysqli_query($conn4, $sql4) or die("Error in Selecting clientreq " . mysqli_error($conn));
                       if($result4){ /*** client request table updated */
+                          $to=$email;
+                             $message2='
+		
+			<html>
+			<head>
+			<title>Title of email</title>
+			</head>
+
+			<body>
+
+			<div  style=" border:1px solid grey; padding:20px;">
+			        <div style="font-size: 35px; margin: 30px;color:#C0392B;">
+			        	<strong>Hello, Welcome !</strong> 
+			        </div>
+			        <p> Dear User,<br><br>
+			       		Your request is apporved
+			        </p><br>
+
+			        <div id="instructions">
+			                <div class="category">
+			                        <div class="category-heading" style="font-weight: 500; font-size: 16px;"> CLIENT REQUEST </div>
+			                        <ul class="category-instructions">
+                                        <li> </li>
+                                            <li>your requested amount '.$amountrepay.' is approved </li> 
+			                                <li> Just Login and start evaluating your Finance.</li>
+			                        </ul>
+			                </div>
+			                
+			        </div>
+			 		<br><br><br>
+	        		<div>
+		                 Thanks again, and if you ever have any questions or feedback, just send us an email :<br><br>
+		                 <span style="color:#C0392B;"> SAIRAM RAVI  :</span> ravi.sairam27@gmail.com <br>
+		                 <span style="color:#C0392B;"> VARUN J SHAH : </span> vjs281095@gmail.com <br>
+		                 <br>
+		                 We read &amp; respond to every request!
+	       			</div>
+
+			</div>
+
+			</body>
+			</html>	
+		';
+    
+			                 $sentmail = mail($to,$subject,$message2,implode("\r\n",$header)) or die("Error sending mail.");
                             $response["success"] = TRUE;
                             $response["message"]= "Fund taken Successfully";
                             echo json_encode($response); 
@@ -144,7 +238,8 @@ if (isset($_POST['fid']) && isset($_POST['email']) && isset($_POST['category']) 
             $response["message"] = "He is paying more than he took";
             echo json_encode($response);
         }
-    }else{
+    }
+    else{
         $response["success"] = FALSE;
         $response["message"] = "category not specified";
         echo json_encode($response);

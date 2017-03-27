@@ -451,10 +451,11 @@ Price Table
           <table class="table clientstable table-striped" id="clientstable">
             <thead id="tblHead">
               <tr>
-                <th><input type="checkbox" /></th>  
+                  
                 <th>Clients</th>
                 <th>mobile</th>
-                <th>email</th>  
+                <th>email</th> 
+                <th><input type="checkbox" /></th>
               </tr>
             </thead>
             <tbody id="tblbody">
@@ -462,13 +463,12 @@ Price Table
             </tbody>
           </table>
           <div class="form-group">
-            <input type="button" class="btn btn-warning btn-sm pull-right" value="Delete">
+            <input type="button" class="btn btn-warning btn-sm pull-right deleteclient" value="Delete">
             <div class="clearfix"></div>
           </div>
 		</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save Changes</button>
              <div class="modal-footer">
           <div class="message pull-left" id="signup-message9"></div>
         </div>
@@ -491,13 +491,13 @@ Price Table
           <h3 class="modal-title">Your Investors</h3>
         </div>
         <div class="modal-body">
-          <table class="table table-striped" id="tblGrid">
+          <table class="table table-striped" id="tblGrid7">
             <thead id="tblHead">
               <tr>
-                <th><input type="checkbox" /></th>  
                 <th>Investors</th>
                 <th>Mobile</th>
-                <th class="text-right">Email</th>  
+                <th class="text-right">Email</th> 
+                <th><input type="checkbox" /></th>
               </tr>
             </thead>
             <tbody id="tblbody2">
@@ -506,13 +506,15 @@ Price Table
             </tbody>
           </table>
           <div class="form-group">
-            <input type="button" class="btn btn-warning btn-sm pull-right" value="Delete">
+            <input type="button" class="btn btn-warning btn-sm pull-right deleteinvestor" value="Delete">
             <div class="clearfix"></div>
           </div>
 		</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save Changes</button>
+              <div class="modal-footer">
+          <div class="message pull-left" id="signup-message20"></div>
+        </div>
         </div>
 				
       </div><!-- /.modal-content -->
@@ -789,7 +791,7 @@ Price Table
             </tbody>
           </table>
           <div class="form-group">
-            <input type="button" class="btn btn-warning btn-approve btn-sm pull-right" value="Approve">
+              <button type="button" class="btn btn-warning btn-approve btn-sm pull-right">Aprrove <span id="clapprove" class="glyphicon clapprove"></span></button>
             <div class="clearfix"></div>
           </div>
 		</div>
@@ -833,7 +835,7 @@ Price Table
             </tbody>
           </table>
           <div class="form-group">
-            <input type="button" class="btn iapproval-btn btn-warning btn-sm pull-right" value="Approve">
+              <button type="button" class="btn iapproval-btn btn-warning btn-sm pull-right">Approve <span id="inapprove" class="glyphicon inapprove"></span></button>
             <div class="clearfix"></div>
           </div>
 		</div>

@@ -1215,10 +1215,10 @@ $(document).on('click','.clientdetails-btn',function(){
          var len = Object.keys(json).length;
             for(var i=0;i<(len-2);i++){
             content += '<tr>';
-            content += '<td><input type="checkbox"/></td>';
             content += '<td>' + json[i].fname + '</td>';
-            content += '<td>' + json[i].mobile + '</td>';
-            content += '<td>' + json[i].email + '</td>';
+            content += '<td class="mobileclient">' + json[i].mobile + '</td>';
+            content += '<td class="emailclient">' + json[i].email + '</td>';
+            content += '<td><input type="checkbox"/></td>';
             content += '</tr>';
             }
         $("#tblbody").html(content);
@@ -1234,10 +1234,10 @@ $(document).on('click','.investordetails-btn',function(){
          var len = Object.keys(json).length;
             for(var i=0;i<(len-2);i++){
             content += '<tr>';
-            content += '<td><input type="checkbox"/></td>';
             content += '<td>' + json[i].fname + '</td>';
-            content += '<td>' + json[i].mobile + '</td>';
-            content += '<td>' + json[i].email + '</td>';
+            content += '<td class="mobileinvestor">' + json[i].mobile + '</td>';
+            content += '<td class="emailinvestor">' + json[i].email + '</td>';
+            content += '<td><input type="checkbox"/></td>';
             content += '</tr>';
             }
         $("#tblbody2").html(content);
@@ -1473,11 +1473,14 @@ $(document).on('click','.btn-approve',function(){
         var fid= localStorage.getItem("fid"); 
         $('#tblGrid1 tbody').find('tr').each(function () {
         var row = $(this);
+       
         if (row.find('input[type="checkbox"]').is(':checked')) {
             var clientemail = row.find(".clientemail").text();
             var amountrequested = row.find(".amountrequested").text();
             var interestrate = row.find(".interestrate").text();
             var amountrepay = row.find(".amountrepay").text();
+            $(this).find($(".clapprove")).removeClass('has-error').addClass('has-success');
+            $(this).find($(".clapprove")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
             if(amountrepay=="null"){
             var category="loan";
              $.post("http://localhost:80/Finment/clientrequestacc.php",
@@ -1497,14 +1500,20 @@ $(document).on('click','.btn-approve',function(){
                             localStorage.setItem("balance",(parseInt(balan)-parseInt(amountrequested)));
                             var balance2=localStorage.getItem("balance");
                             $(".balanceamount").text(balance2); 
+                            $(".clapprove").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+                            $(".clapprove").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
                             $('#signup-message8').html(message1);
                         }else
                         {
+                            $(".clapprove").removeClass('has-success').addClass('has-error');
+                            $(".clapprove").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
                             $('#signup-message8').html(result.message);
                         }
                     });   
             }else if(amountrequested=="null"){
              var category="repay";
+                $(this).find($(".clapprove")).removeClass('has-error').addClass('has-success');
+            $(this).find($(".clapprove")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
              $.post("http://localhost:80/Finment/clientrequestacc.php",
                     {
                     fid:fid,
@@ -1522,9 +1531,13 @@ $(document).on('click','.btn-approve',function(){
                             localStorage.setItem("balance",(parseInt(balan)+parseInt(amountrepay)));
                             var balance3=localStorage.getItem("balance");
                             $(".balanceamount").text(balance3); 
+                             $(".clapprove").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+                            $(".clapprove").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
                             $('#signup-message8').html(message1);
                         }else
                         {
+                            $(".clapprove").removeClass('has-success').addClass('has-error');
+                            $(".clapprove").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
                             $('#signup-message8').html(result.message);
                         }
                     });
@@ -1561,12 +1574,12 @@ $(document).on('click','.iapproval-btn',function(){
         var row = $(this);
         if (row.find('input[type="checkbox"]').is(':checked')) {
             var investoremail = row.find(".investoremail").text();
-            var amountinvest = row.find(".amountinvest").text();
             var interestrate = row.find(".interestrate").text();
-            var amountback = row.find(".amountback").text();
-            
+            $(this).find($(".inapprove")).removeClass('has-error').addClass('has-success');
+            $(this).find($(".inapprove")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
             if(amountback=="null"){
             var category="invest";
+            var amountinvest = row.find(".amountinvest").text();
              $.post("http://localhost:80/Finment/investorrequestacc.php",
                     {
                     fid:fid,
@@ -1584,14 +1597,21 @@ $(document).on('click','.iapproval-btn',function(){
                             localStorage.setItem("balance",(parseInt(locbal)+parseInt(amountinvest)));
                             var balance2=localStorage.getItem("balance");
                             $(".balanceamount").text(balance2); 
+                            $(".inapprove").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+                            $(".inapprove").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
                             $('#signup-message12').html(message1);
                         }else
                         {
+                             $(".inapprove").removeClass('has-success').addClass('has-error');
+                                $(".inapprove").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
                             $('#signup-message12').html(result.message);
                         }
                     });   
             }else if(amountinvest=="null"){
              var category="backamt";
+            var amountback = row.find(".amountback").text(); 
+            $(this).find($(".inapprove")).removeClass('has-error').addClass('has-success');
+            $(this).find($(".inapprove")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
              $.post("http://localhost:80/Finment/investorrequestacc.php",
                     {
                     fid:fid,
@@ -1609,9 +1629,13 @@ $(document).on('click','.iapproval-btn',function(){
                             localStorage.setItem("balance",(parseInt(locbal2)-parseInt(amountback)));
                             var balance3=localStorage.getItem("balance");
                             $(".balanceamount").text(balance3); 
+                            $(".inapprove").removeClass('has-error').addClass('has-success').removeClass('glyphicon-remove');
+                            $(".inapprove").removeClass('glyphicon-refresh').addClass('glyphicon-ok').removeClass('glyphicon-refresh-animate');
                             $('#signup-message12').html(message1);
                         }else
                         {
+                             $(".inapprove").removeClass('has-success').addClass('has-error');
+                             $(".inapprove").removeClass('glyphicon-refresh').addClass('glyphicon-remove').removeClass('glyphicon-refresh-animate');
                             $('#signup-message12').html(result.message);
                         }
                     });
@@ -1620,4 +1644,72 @@ $(document).on('click','.iapproval-btn',function(){
             }
         }
     });
+});
+
+$(document).on('click','.deleteclient',function(){
+     var fid= localStorage.getItem("fid"); 
+     $('#clientstable tbody').find('tr').each(function () {
+        var row = $(this);
+        if (row.find('input[type="checkbox"]').is(':checked')) {
+            var emailclient = row.find(".emailclient").text();
+            var category="Client";
+             $.post("http://localhost:80/Finment/delete.php",
+                    {
+                    fid:fid,
+                    email:emailclient,
+                    category:category
+                    },function(data)
+                    {
+                        var result = JSON.parse(data);
+                        if(result.success)
+                        {
+                            var message1="Client deleted successfully"
+                            row.remove();
+                            var locbal = localStorage.getItem("clients");
+                            localStorage.setItem("clients",(parseInt(locbal)-1));
+                            var balance2=localStorage.getItem("clients");
+                            $("#noofclients").text(balance2); 
+                            $('#signup-message9').html(message1);
+                        }else
+                        {
+                            $('#signup-message9').html(result.message);
+                        }
+                    });   
+            
+        }
+    });
+});
+
+$(document).on('click','.deleteinvestor',function(){
+     var fid= localStorage.getItem("fid"); 
+     $('#tblGrid7 tbody').find('tr').each(function () {
+        var row = $(this);
+        if (row.find('input[type="checkbox"]').is(':checked')) {
+            var emailinvestor = row.find(".emailinvestor").text();
+            var category="Investor";
+             $.post("http://localhost:80/Finment/delete.php",
+                    {
+                    fid:fid,
+                    email:emailinvestor,
+                    category:category
+                    },function(data)
+                    {
+                        var result = JSON.parse(data);
+                        if(result.success)
+                        {
+                            var message1="Investor deleted successfully"
+                            row.remove();
+                            var locbal = localStorage.getItem("investors");
+                            localStorage.setItem("investors",(parseInt(locbal)-1));
+                            var balance2=localStorage.getItem("investors");
+                            $("#noofinvestors").text(balance2); 
+                            $('#signup-message20').html(message1);
+                        }else
+                        {
+                            $('#signup-message20').html(result.message);
+                        }
+                    });   
+        }
+    });
+    
 });
