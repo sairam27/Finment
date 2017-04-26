@@ -38,8 +38,8 @@ var balance = (parseInt(totrequested)-parseInt(totrepay));
 if((parseInt(bapproval)==1) && (parseInt(rapproval)==1))
 $(".balanceamountpay").text(parseInt(balance));
 
-var interest=((balance*2.50)/100);
-$(".interestamount").text(interest);
+var interest=((parseInt(balance)*2.50)/100);
+$(".interestamount").text(parseInt(interest));
 
 $(document).on('click','.logout-btn a',function(){
     localStorage.clear();
@@ -519,10 +519,10 @@ $(document).on('click','.interestdetails-btn',function(event){
                     var interest= ((json[i].totrequested*2.50)/100);
             content += '<tr>';
             content += '<td>' + json[i].created_at + '</td>';
-            content += '<td class="text-right">' + json[i].totrequested + '</td>';
-            content += '<td class="text-right">' + '2.5' + '</td>';
+            content += '<td class="text-right">' + json[i].totrequested +'Rs/-' + '</td>';
+            content += '<td class="text-right">' + '2.5 Rs/-' + '</td>';
             content += '<td class="text-right">' + json[i].totrepay + '</td>';
-            content += '<td class="text-right">' + interest + '</td>';
+            content += '<td class="text-right">' + interest + 'Rs/-' + '</td>';
             content += '</tr>';
             }
         $("#tblbody8").html(content);

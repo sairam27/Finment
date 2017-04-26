@@ -66,7 +66,7 @@ if (!empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['email']
 
 			        <hr style="width:80%; color:grey; text-align: center;"><br>
 			        <div style="width:100%;background-color:#C0392B;line-height:40px;margin:0px auto;border-radius: .25rem;" >
-			        	<a href="http://192.168.101.100:80/Finment/confirm.php?fname='.$fname.'&category='.$category.'&passkey='.$confirmation.'&email='.$email.'" style="color:white;text-align:center;text-decoration:none;display:block;"> Activate My Account </a>
+			        	<a href="http://192.168.225.32:80/Finment/confirm.php?fname='.$fname.'&category='.$category.'&passkey='.$confirmation.'&email='.$email.'" style="color:white;text-align:center;text-decoration:none;display:block;"> Activate My Account </a>
 					</div>       
 			 		<br><br><br>
 	        		<div>

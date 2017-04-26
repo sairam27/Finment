@@ -29,7 +29,7 @@ var investorinvest=localStorage.getItem("investorinvest");
 
 var profit=( parseInt((2.50*parseInt(clientloan))/100)  -  parseInt((1.50*parseInt(investorinvest))/100) );
 $(".earningsamount").text(profit);
-if(profit<=0)
+if(profit<0)
 $(".earnings-btn").text("Yes your profit is negative because you have investors but less clients");
 else
 $(".earnings-btn").text("Your are good to go hope to find you as a investor...!");    
@@ -1575,11 +1575,12 @@ $(document).on('click','.iapproval-btn',function(){
         if (row.find('input[type="checkbox"]').is(':checked')) {
             var investoremail = row.find(".investoremail").text();
             var interestrate = row.find(".interestrate").text();
+            var amountinvest = row.find(".amountinvest").text();
+            var amountback = row.find(".amountback").text(); 
             $(this).find($(".inapprove")).removeClass('has-error').addClass('has-success');
             $(this).find($(".inapprove")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
             if(amountback=="null"){
             var category="invest";
-            var amountinvest = row.find(".amountinvest").text();
              $.post("http://localhost:80/Finment/investorrequestacc.php",
                     {
                     fid:fid,
@@ -1609,7 +1610,7 @@ $(document).on('click','.iapproval-btn',function(){
                     });   
             }else if(amountinvest=="null"){
              var category="backamt";
-            var amountback = row.find(".amountback").text(); 
+            
             $(this).find($(".inapprove")).removeClass('has-error').addClass('has-success');
             $(this).find($(".inapprove")).addClass('glyphicon-refresh').addClass('glyphicon-refresh-animate');
              $.post("http://localhost:80/Finment/investorrequestacc.php",

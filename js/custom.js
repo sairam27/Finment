@@ -50,7 +50,7 @@
     return result;
     }
     
-    var wsUri = "ws://192.168.0.156:9000/Finment/server.php"; 	
+    var wsUri = "ws://192.168.101.104:9000/Finment/server.php"; 	
 	websocket = new WebSocket(wsUri); 
        
     websocket.onopen = function(ev) { // connection is open 
