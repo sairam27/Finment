@@ -1,6 +1,8 @@
-Thanks for downloading this theme!
+Thanks for Viewing my Project!
 
-Theme Name: Mentor
-Theme URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-Author: BootstrapMade.com
-Author URL: https://bootstrapmade.com
+Name: Finment
+develpoer: SAIRAM RAVI
+contact no: 9160545192
+mail id: ravi.sairam27@gmail.com
+
+Any queries dont hesitate to contact me. "LETS CHANGE" , "MAKE INDIA GREAT"
